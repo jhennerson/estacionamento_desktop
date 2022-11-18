@@ -91,15 +91,15 @@ public class DBQuery {
 		for (String value : values) {
 			System.out.println(value);
 		}
-		if ( values.length == this.fieldsName.length){
-			String sql = "INSERT INTO "+this.tableName+" ( "+  this.joinElements(this.fieldsName, ", ");
+		//if ( values.length == this.fieldsName.length){
+			String sql = "INSERT INTO "+this.tableName+" ("+  this.joinElements(this.fieldsName, ", ");
 			sql += ") VALUES ('"+joinElements(values, "','")+"')";
 			System.out.print(sql);
 			return ( this.execute(sql));
-		}else{
-			System.out.print("O número de valores informados não é equivalente aos campos da tabela!");
-		}	
-		return 0;
+		//}else{
+		//	System.out.print("O número de valores informados não é equivalente aos campos da tabela!");
+		//}	
+		//return 0;
 	}
 	
 	public int delete(String[] values) {
