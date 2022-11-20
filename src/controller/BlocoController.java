@@ -47,17 +47,11 @@ public class BlocoController {
 	
 	//salva o bloco no banco de dados
 	public void create(Bloco bloco) {
-		Integer vagasCarros = 0;
-		Integer vagasMotos = 0;
-		Integer vagasDeficientes = 0;
 		String descricao = bloco.getDescricao();
 		String operador = bloco.getOperador();
-		
-		for(Vaga v : bloco.getVagas()) {
-			if (v.getCategoria() == 1) vagasCarros += 1;
-			if (v.getCategoria() == 2) vagasMotos += 1;
-			if (v.getCategoria() == 3) vagasDeficientes += 1;
-		}
+		Integer vagasCarros = bloco.getVagasCarros();
+		Integer vagasMotos = bloco.getVagasMotos();
+		Integer vagasDeficientes = bloco.getVagasDeficientes();
 		
 		String sql = "INSERT INTO blocos (descricao, operador, vagas_carros, vagas_motos, vagas_deficientes) "
 				   + "VALUES ('" + descricao + "', '" + operador + "', '" + vagasCarros + "', '" + vagasMotos + "', '" + vagasDeficientes + "')";

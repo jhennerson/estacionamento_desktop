@@ -33,6 +33,7 @@ public class VagaController {
 	
 	//CREATE / READ / UPDATE / DELETE
 	public int execute(String sql) {
+		
 		try {
 			int rs = statement.executeUpdate(sql);
 			return (rs);

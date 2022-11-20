@@ -5,6 +5,7 @@ import controller.UsuarioController;
 import controller.VagaController;
 import model.Bloco;
 import model.Operador;
+import model.Usuario;
 import model.Vaga;
 import view.LoginView;
 
@@ -12,20 +13,20 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Operador operador = new Operador("augusto", "freefire", 1);
+		Operador operador = new Operador("augusto", "freefire", "Bloco A");
 		UsuarioController usuCtr = new UsuarioController();
 		usuCtr.create(operador);
 		
 		LoginView loginView = new LoginView();
 		loginView.setVisible(true);
 		
-		for(Operador u : usuCtr.getList()) {
+		for(Usuario u : usuCtr.getList()) {
 			System.out.println("ID: " + u.getId());
 			System.out.println("NOME: " + u.getUsername());
 			System.out.println("SENHA: " + u.getPassword());
 		}
 		
-		Operador novoUsuario = new Operador(12, "dsadsa", "1234", 1);
+		Operador novoUsuario = new Operador(12, "dsadsa", "1234", "Bloco B");
 		
 		usuCtr.update(novoUsuario);
 		

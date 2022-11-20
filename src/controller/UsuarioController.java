@@ -8,6 +8,7 @@ import java.util.List;
 
 import database.DBConnection;
 import model.Operador;
+import model.Usuario;
 
 public class UsuarioController {
 	
@@ -47,7 +48,7 @@ public class UsuarioController {
 	public void create(Operador operador) {		
 		String nome = operador.getUsername();
 		String senha = operador.getPassword().toString();
-		Integer bloco = operador.getBloco();
+		String bloco = operador.getBloco();
 		String senhaCriptografada = Cripto.Criptografar(senha);
 		
 		String sql = "INSERT INTO usuarios (username, password, bloco) VALUES ('" + nome + "', '" + senhaCriptografada + "', '" + bloco + "')";
@@ -75,7 +76,7 @@ public class UsuarioController {
 		Integer id = operador.getId();
 		String nome = operador.getUsername();
 		String senha = operador.getPassword().toString();
-		Integer bloco = operador.getBloco();
+		String bloco = operador.getBloco();
 		String senhaCriptografada = Cripto.Criptografar(senha);
 		
 		String sql = "UPDATE usuarios SET username = '" + nome + "', password = '" + senhaCriptografada + "', bloco = '" + bloco + "' WHERE id = '" + id + "'";
@@ -100,8 +101,8 @@ public class UsuarioController {
 	}
 	
 	//retorna uma lista de todos os usuários cadastrados no banco de dados
-	public List<Operador> getList() {		
-		List<Operador> operadores = new ArrayList<Operador>();
+	public List<Usuario> getList() {		
+		List<Usuario> operadores = new ArrayList<Usuario>();
 		ResultSet rset = null;		
 		String sql = "SELECT * FROM usuarios ORDER BY id";
 		
@@ -114,7 +115,7 @@ public class UsuarioController {
 				operador.setId(rset.getInt("id"));
 				operador.setUsername(rset.getString("username"));
 				operador.setPassword(rset.getString("password"));
-				operador.setBloco(rset.getInt("bloco"));
+				operador.setBloco(rset.getString("bloco"));
 				
 				operadores.add(operador);
 			}

@@ -35,6 +35,16 @@ public class Bloco {
 		this.vagasDeficientes = vagasDeficiente;
 	}
 	
+	public Bloco(String descricao, String operador, Integer vagasCarro,
+			Integer vagasMoto, Integer vagasDeficiente) {
+		super();
+		this.descricao = descricao;
+		this.operador = operador;
+		this.vagasCarros = vagasCarro;
+		this.vagasMotos = vagasMoto;
+		this.vagasDeficientes = vagasDeficiente;
+	}
+	
 	public Bloco(String descricao, String operador) {
 		super();
 		this.descricao = descricao;

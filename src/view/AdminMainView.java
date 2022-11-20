@@ -54,8 +54,8 @@ public class AdminMainView {
 		btnAdminEstacionamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				EstacionamentoCadastroView estacionamentoCadastroView = new EstacionamentoCadastroView();
-				estacionamentoCadastroView.setVisible(true);
+				BlocoCadastroView blocoCadastroView = new BlocoCadastroView();
+				blocoCadastroView.setVisible(true);
 				SwingUtilities.windowForComponent(btnAdminEstacionamento).dispose();
 				
 			}
