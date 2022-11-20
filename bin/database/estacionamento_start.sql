@@ -31,13 +31,11 @@ USE db_parking;
 -- Estrutura da tabela `areas`
 --
 
-CREATE TABLE `blocos` (
+CREATE TABLE `areas` (
   `id` int(11) NOT NULL,
+  `nome` varchar(32) NOT NULL,
   `descricao` varchar(64) NOT NULL,
-  `operador` varchar(16) NOT NULL,
-  `vagas_carros` int(11) NOT NULL,
-  `vagas_motos` int(11) NOT NULL,
-  `vagas_deficientes` int(11) NOT NULL
+  `usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -55,21 +53,21 @@ CREATE TABLE `estacionamento` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `usuarios`
+-- Estrutura da tabela `operadores`
 --
 
 CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `username` varchar(16) NOT NULL,
   `password` varchar(32) NOT NULL,
-  `bloco` int(11) NOT NULL
+  `area` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `usuarios`
+-- Extraindo dados da tabela `operadores`
 --
 
-INSERT INTO `usuarios` (`id`, `username`, `password`, `bloco`) VALUES
+INSERT INTO `usuarios` (`id`, `username`, `password`, `area`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 0);
 
 -- --------------------------------------------------------
@@ -81,8 +79,8 @@ INSERT INTO `usuarios` (`id`, `username`, `password`, `bloco`) VALUES
 CREATE TABLE `vagas` (
   `id` int(11) NOT NULL,
   `categoria` tinyint(4) NOT NULL,
-  `bloco` int(11) NOT NULL,
-  `estado` tinyint(1) NOT NULL
+  `estado` tinyint(1) NOT NULL,
+  `area` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -90,9 +88,9 @@ CREATE TABLE `vagas` (
 --
 
 --
--- Índices para tabela `blocos`
+-- Índices para tabela `areas`
 --
-ALTER TABLE `blocos`
+ALTER TABLE `areas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -102,7 +100,7 @@ ALTER TABLE `estacionamento`
   ADD PRIMARY KEY (`cnpj`);
 
 --
--- Índices para tabela `usuarios`
+-- Índices para tabela `operadores`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
@@ -118,10 +116,10 @@ ALTER TABLE `vagas`
 --
 
 --
--- AUTO_INCREMENT de tabela `blocos`
+-- AUTO_INCREMENT de tabela `areas`
 --
-ALTER TABLE `blocos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+ALTER TABLE `areas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `estacionamento`
@@ -130,16 +128,16 @@ ALTER TABLE `estacionamento`
   MODIFY `cnpj` int(14) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de tabela `usuarios`
+-- AUTO_INCREMENT de tabela `operadores`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `vagas`
 --
 ALTER TABLE `vagas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

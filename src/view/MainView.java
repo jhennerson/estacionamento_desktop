@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import java.awt.Font;
 
 public class MainView {
 
@@ -21,6 +22,10 @@ public class MainView {
 			}
 		});
 	}
+	
+	public void setVisible(boolean b) {
+		this.frame.setVisible(b);
+	}
 
 	public MainView() {
 		initialize();
@@ -28,16 +33,13 @@ public class MainView {
 
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Tela Principal Operador");
-		lblNewLabel.setBounds(151, 59, 111, 14);
-		frame.getContentPane().add(lblNewLabel);		
-	}
-	
-	public void setVisible(boolean b) {
-		this.frame.setVisible(b);
+		JLabel lblTitle = new JLabel("Parkinson");
+		lblTitle.setFont(new Font("Unispace", Font.BOLD, 25));
+		lblTitle.setBounds(146, 11, 141, 25);
+		frame.getContentPane().add(lblTitle);		
 	}
 }

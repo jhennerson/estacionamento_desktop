@@ -1,8 +1,5 @@
-/estacionamento/
-/model/
-/resources/
-/database/
 /dao/
-/main/
+/model/
 /view/
+/main/
 /controller/

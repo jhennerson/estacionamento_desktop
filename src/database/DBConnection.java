@@ -30,7 +30,7 @@ public class DBConnection {
 	public DBConnection() {
 		this.setHost	("localhost");
 		this.setPort	("3306");
-		this.setSchema	("estacionamento");
+		this.setSchema	("db_parking");
 		this.setUser	("root");
 		this.setPassword("");
 		this.doConnection();
