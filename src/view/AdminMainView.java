@@ -47,30 +47,42 @@ public class AdminMainView {
 		lblTitle.setBounds(237, 28, 315, 31);
 		frame.getContentPane().add(lblTitle);
 		
-		JButton btnAdminEstacionamento = new JButton("Gerenciar Estacionamento");
-		btnAdminEstacionamento.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAdminEstacionamento.addActionListener(new ActionListener() {
+		JButton btnAdminBlocos = new JButton("Gerenciar Blocos");
+		btnAdminBlocos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAdminBlocos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.windowForComponent(btnAdminEstacionamento).dispose();
+				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
 				BlocoView blocoView = new BlocoView();
 				blocoView.setVisible(true);								
 			}
 		});
 		
-		btnAdminEstacionamento.setBounds(132, 491, 195, 42);
-		frame.getContentPane().add(btnAdminEstacionamento);
+		btnAdminBlocos.setBounds(237, 220, 315, 67);
+		frame.getContentPane().add(btnAdminBlocos);
 		
 		JButton btnAdminUsuarios = new JButton("Gerenciar Usuarios");
 		btnAdminUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAdminUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.windowForComponent(btnAdminEstacionamento).dispose();
+				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
 				UsuarioView usuarioView = new UsuarioView();
 				usuarioView.setVisible(true);				
 			}
 		});
 		
-		btnAdminUsuarios.setBounds(461, 491, 195, 42);
+		btnAdminUsuarios.setBounds(237, 298, 315, 76);
 		frame.getContentPane().add(btnAdminUsuarios);
+		
+		JButton btnAdminVagas = new JButton("Gerenciar Vagas");
+		btnAdminVagas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
+				VagaView vagasView = new VagaView();
+				vagasView.setVisible(true);
+			}
+		});
+		btnAdminVagas.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAdminVagas.setBounds(237, 142, 315, 67);
+		frame.getContentPane().add(btnAdminVagas);
 	}
 }

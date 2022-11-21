@@ -5,18 +5,13 @@ import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import controller.BlocoController;
 import controller.VagaController;
-import model.Bloco;
-import model.Usuario;
 import model.Vaga;
 
 import java.awt.Font;
@@ -24,9 +19,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.security.Timestamp;
 import java.util.List;
 import javax.swing.JList;
+import javax.swing.JFormattedTextField;
+import javax.swing.SwingConstants;
 
 public class VagaView {
 
@@ -87,12 +83,14 @@ public class VagaView {
 		txtId.setColumns(10);
 		
 		txtCategoria = new JTextField();
+		txtCategoria.setEditable(false);
 		txtCategoria.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtCategoria.setBounds(111, 417, 208, 30);
 		frame.getContentPane().add(txtCategoria);
 		txtCategoria.setColumns(10);
 		
 		txtBloco = new JTextField();
+		txtBloco.setEditable(false);
 		txtBloco.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtBloco.setColumns(10);
 		txtBloco.setBounds(329, 417, 208, 30);
@@ -200,13 +198,10 @@ public class VagaView {
 				refresh.setVisible(true);				
 			}
 		});
+		
 		btnAlterarEstado.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAlterarEstado.setBounds(550, 415, 224, 75);
 		frame.getContentPane().add(btnAlterarEstado);
-		
-		JList list = new JList();
-		list.setBounds(22, 458, 79, 92);
-		frame.getContentPane().add(list);
 		
 		btnRelatorio = new JButton("Relatório");
 		btnRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -217,5 +212,15 @@ public class VagaView {
 		btnCalcular.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCalcular.setBounds(111, 503, 208, 47);
 		frame.getContentPane().add(btnCalcular);
+		
+		JFormattedTextField ftfValor = new JFormattedTextField();
+		ftfValor.setBounds(21, 503, 80, 47);
+		frame.getContentPane().add(ftfValor);
+		
+		JLabel lblCalculo = new JLabel("Valor a Pagar");
+		lblCalculo.setFont(new Font("Verdana", Font.BOLD, 10));
+		lblCalculo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCalculo.setBounds(21, 458, 80, 30);
+		frame.getContentPane().add(lblCalculo);
 	}
 }
