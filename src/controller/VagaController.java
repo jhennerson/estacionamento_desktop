@@ -22,6 +22,7 @@ public class VagaController {
 		}
 	}
 	
+	//QUERY COM RESULTSET
 	public ResultSet query(String sql) {
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -75,9 +76,10 @@ public class VagaController {
 		Integer id = vaga.getId();
 		Integer categoria = vaga.getCategoria();
 		String bloco = vaga.getBloco();
-		Integer estado = vaga.getEstado();
 		
-		String sql = "UPDATE vagas SET categoria = '" + categoria + "', bloco = '" + bloco + "', estado = '" + estado + "' WHERE id = '" + id + "'";
+		//ADICIONAR REGRAS
+		
+		String sql = "UPDATE vagas SET categoria = '" + categoria + "', bloco = '" + bloco + "' WHERE id = '" + id + "'";
 		
 		try {
 			this.execute(sql);
@@ -114,6 +116,7 @@ public class VagaController {
 				vaga.setCategoria(rset.getInt("categoria"));
 				vaga.setBloco(rset.getString("bloco"));
 				vaga.setEstado(rset.getInt("estado"));
+				vaga.setTimestamp(rset.getTimestamp("timestamp"));
 				
 				vagas.add(vaga);
 			}
@@ -125,10 +128,12 @@ public class VagaController {
 		return vagas;
 	}
 	
+	//retorna uma lista de vagas presentes apenas no bloco do operador passado como parâmetro
 	public List<Vaga> getList(Operador operador) {		
 		List<Vaga> vagas = new ArrayList<Vaga>();
+		String bloco = operador.getBloco();
 		ResultSet rset = null;		
-		String sql = "SELECT * FROM vagas WHERE bloco = " + operador.getUsername() + " ORDER BY id";
+		String sql = "SELECT * FROM vagas WHERE bloco = " + bloco + " ORDER BY id";
 		
 		try {					
 			rset = query(sql);
@@ -140,6 +145,7 @@ public class VagaController {
 				vaga.setCategoria(rset.getInt("categoria"));
 				vaga.setBloco(rset.getString("bloco"));
 				vaga.setEstado(rset.getInt("estado"));
+				vaga.setTimestamp(rset.getTimestamp("timestamp"));
 				
 				vagas.add(vaga);
 			}
@@ -151,15 +157,55 @@ public class VagaController {
 		return vagas;
 	}
 	
-	public String alteraEstado(Vaga vaga) {
+	//cria várias vagas de uma só vez
+	public void create(Vaga vaga, Integer quantidade) {
+		Integer categoria = vaga.getCategoria();
+		String bloco = vaga.getBloco();
+		Integer estado = vaga.getEstado();
 		
-		if(vaga.getEstado() == 0) {
-			vaga.setEstado(1);
-			return "Estado alterado para OCUPADO!";
-		} else {
-			vaga.setEstado(0);
-			return "Estado alterado para LIVRE!";
-		}
+		if(quantidade <= 0) return;
+		
+		for(int i = 0; i < quantidade; i++) {
+			String sql = "INSERT INTO vagas (categoria, bloco, estado) "
+					   + "VALUES ('" + categoria + "', '" + bloco + "', '" + estado + "')";
+			
+			try {
+				this.execute(sql);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	//altera e retorna o estado da vaga
+	public void alteraEstado(Integer id) {		
+		ResultSet rset = null;		
+		String sql = "SELECT estado FROM vagas WHERE id = '" + id + "'";
+		Integer estado = null;
+		
+		//ADICIONAR REGRAS		
+		
+		try {					
+			rset = query(sql);
+			
+			if(rset.next()) {
+				estado = rset.getInt("estado");
+			}
+			
+			if(estado == 0) {
+				sql = "UPDATE vagas SET estado = 1 WHERE id = '" + id + "'";
+			} else {
+				sql = "UPDATE vagas SET estado = 0 WHERE id = '" + id + "'";
+			}
+			
+			try {
+				this.execute(sql);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}		
 	}
 
 }

@@ -60,27 +60,27 @@ public class UsuarioCreateView {
 		frame.getContentPane().add(lblTitulo);
 		
 		txtUsername = new JTextField();
-		txtUsername.setBounds(335, 165, 184, 20);
+		txtUsername.setBounds(335, 165, 184, 29);
 		frame.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
 		JLabel lblUsername = new JLabel("Username");
 		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblUsername.setBounds(261, 166, 64, 17);
+		lblUsername.setBounds(261, 166, 64, 28);
 		frame.getContentPane().add(lblUsername);
 		
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPassword.setBounds(261, 206, 64, 17);
+		lblPassword.setBounds(261, 217, 64, 29);
 		frame.getContentPane().add(lblPassword);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(335, 205, 184, 20);
+		passwordField.setBounds(335, 217, 184, 29);
 		frame.getContentPane().add(passwordField);
 		
 		JLabel lblBloco = new JLabel("Bloco");
 		lblBloco.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblBloco.setBounds(261, 249, 64, 17);
+		lblBloco.setBounds(261, 276, 64, 25);
 		frame.getContentPane().add(lblBloco);
 		
 		BlocoController blocosCtrl = new BlocoController();
@@ -91,7 +91,7 @@ public class UsuarioCreateView {
 		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		JComboBox comboBoxBloco = new JComboBox(descricaoBlocos);
-		comboBoxBloco.setBounds(335, 248, 184, 22);
+		comboBoxBloco.setBounds(335, 272, 184, 29);
 		frame.getContentPane().add(comboBoxBloco);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
@@ -116,7 +116,7 @@ public class UsuarioCreateView {
 			}
 		});
 		
-		btnCadastrar.setBounds(212, 427, 117, 23);
+		btnCadastrar.setBounds(166, 427, 157, 48);
 		frame.getContentPane().add(btnCadastrar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -128,7 +128,7 @@ public class UsuarioCreateView {
 			}
 		});
 		
-		btnCancelar.setBounds(472, 427, 117, 23);
+		btnCancelar.setBounds(459, 427, 157, 48);
 		frame.getContentPane().add(btnCancelar);		
 	}
 }

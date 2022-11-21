@@ -96,8 +96,8 @@ public class LoginView {
 						} else {
 							JOptionPane.showMessageDialog(null, "Logado com sucesso!", "Success", JOptionPane.NO_OPTION);
 							SwingUtilities.windowForComponent(btnEntrar).dispose();
-							MainView mainView = new MainView();
-							mainView.setVisible(true);							
+							VagaView vagaView = new VagaView();
+							vagaView.setVisible(true);							
 						}						
 					} else {
 						JOptionPane.showMessageDialog(null, "Login ou senha inválido!", "Ops", JOptionPane.ERROR_MESSAGE);

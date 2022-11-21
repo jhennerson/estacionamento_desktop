@@ -34,7 +34,7 @@ public class Main {
 		
 		Vaga vaga1 = new Vaga(1, "Bloco B");
 		Vaga vaga2 = new Vaga(2, "Bloco A");
-		Vaga vaga3 = new Vaga(2, 3, "Bloco C", 1);
+		Vaga vaga3 = new Vaga(2, 3, "Bloco C", 2);
 		
 		VagaController vagaCtrl = new VagaController();
 		
@@ -46,10 +46,6 @@ public class Main {
 		
 		
 		Bloco bloco = new Bloco("Bloco D", "conrad");
-		
-		bloco.addVaga(vaga1);
-		bloco.addVaga(vaga2);
-		bloco.addVaga(vaga3);
 		
 		BlocoController blocoCtrl = new BlocoController();
 		blocoCtrl.create(bloco);

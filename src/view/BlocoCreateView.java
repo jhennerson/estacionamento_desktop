@@ -14,7 +14,10 @@ import javax.swing.SwingUtilities;
 
 import controller.BlocoController;
 import controller.UsuarioController;
+import controller.VagaController;
 import model.Bloco;
+import model.Vaga;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -120,7 +123,9 @@ public class BlocoCreateView {
 			public void actionPerformed(ActionEvent e) {
 				
 				Bloco bloco = new Bloco();
+				
 				BlocoController blocoCtrl = new BlocoController();
+				VagaController vagaCtrl = new VagaController();
 				
 				String descricao = txtDescricao.getText();
 				String operador = String.valueOf(comboBoxOperador.getSelectedItem());
@@ -135,6 +140,10 @@ public class BlocoCreateView {
 				bloco.setVagasDeficientes(vagasDeficientes);
 				
 				blocoCtrl.create(bloco);
+				vagaCtrl.create(new Vaga(1, descricao), vagasCarros);
+				vagaCtrl.create(new Vaga(2, descricao), vagasMotos);
+				vagaCtrl.create(new Vaga(3, descricao), vagasDeficientes);
+				
 				
 				JOptionPane.showMessageDialog(null, "Bloco cadastrado com sucesso!", "Success", JOptionPane.NO_OPTION);
 				

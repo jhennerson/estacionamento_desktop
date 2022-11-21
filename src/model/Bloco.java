@@ -10,19 +10,6 @@ public class Bloco {
 	private Integer vagasCarros = 0;
 	private Integer vagasMotos = 0;
 	private Integer vagasDeficientes = 0;
-	private ArrayList<Vaga> vagas = new ArrayList<Vaga>();
-	
-	public Bloco(Integer id, String descricao, String operador, Integer vagasCarro,
-			Integer vagasMoto, Integer vagasDeficiente, ArrayList<Vaga> vagas) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
-		this.operador = operador;
-		this.vagasCarros = vagasCarro;
-		this.vagasMotos = vagasMoto;
-		this.vagasDeficientes = vagasDeficiente;
-		this.vagas = vagas;
-	}
 	
 	public Bloco(Integer id, String descricao, String operador, Integer vagasCarro,
 			Integer vagasMoto, Integer vagasDeficiente) {
@@ -78,14 +65,6 @@ public class Bloco {
 		this.operador = operador;
 	}
 
-	public ArrayList<Vaga> getVagas() {
-		return vagas;
-	}
-
-	public void setVagas(ArrayList<Vaga> vagas) {
-		this.vagas = vagas;
-	}
-
 	public Integer getVagasCarros() {
 		return vagasCarros;
 	}
@@ -108,10 +87,6 @@ public class Bloco {
 
 	public void setVagasDeficientes(Integer vagasDeficientes) {
 		this.vagasDeficientes = vagasDeficientes;
-	}
-	
-	public void addVaga(Vaga vaga) {
-		this.vagas.add(vaga);
 	}
 
 }

@@ -20,10 +20,12 @@ import javax.swing.table.DefaultTableModel;
 import controller.UsuarioController;
 import model.Operador;
 import model.Usuario;
+import javax.swing.JLabel;
 
 public class UsuarioView {
 
 	private JFrame frame;
+	private JLabel lblGerenciamentoDeUsurios;
 	private JTable tableOperadores;
 	private JTextField txtId;
 	private JTextField txtUsername;
@@ -33,6 +35,7 @@ public class UsuarioView {
 	private JButton btnDeletar;
 	private JButton btnVoltar;
 	private JTextField txtBloco;
+	
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,8 +65,13 @@ public class UsuarioView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		lblGerenciamentoDeUsurios = new JLabel("Gerenciamento de Usuários");
+		lblGerenciamentoDeUsurios.setFont(new Font("Unispace", Font.BOLD, 25));
+		lblGerenciamentoDeUsurios.setBounds(204, 11, 375, 39);
+		frame.getContentPane().add(lblGerenciamentoDeUsurios);
+		
 		JScrollPane scrollPaneTabela = new JScrollPane();
-		scrollPaneTabela.setBounds(10, 11, 764, 395);
+		scrollPaneTabela.setBounds(10, 70, 764, 336);
 		frame.getContentPane().add(scrollPaneTabela);
 		
 		txtId = new JTextField();
@@ -118,6 +126,7 @@ public class UsuarioView {
 				return columnEditables[column];
 			}
 		});
+		
 		tableOperadores.getColumnModel().getColumn(0).setResizable(false);
 		tableOperadores.getColumnModel().getColumn(1).setResizable(false);
 		tableOperadores.getColumnModel().getColumn(1).setPreferredWidth(159);
@@ -146,20 +155,20 @@ public class UsuarioView {
 		
 		scrollPaneTabela.setViewportView(tableOperadores);
 		
-		btnCadastrar = new JButton("Cadastrar Novo");
+		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				BlocoCreateView blocoCreateView = new BlocoCreateView();
-				blocoCreateView.setVisible(true);
+				UsuarioCreateView usuarioCreateView = new UsuarioCreateView();
+				usuarioCreateView.setVisible(true);
 				SwingUtilities.windowForComponent(btnCadastrar).dispose();				
 			}
 		});
 		
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnCadastrar.setBounds(22, 481, 166, 47);
+		btnCadastrar.setBounds(22, 503, 166, 47);
 		frame.getContentPane().add(btnCadastrar);
 		
-		btnAtualizar = new JButton(" Atualizar Dados");
+		btnAtualizar = new JButton(" Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				Integer id = Integer.valueOf(txtId.getText());
@@ -184,10 +193,10 @@ public class UsuarioView {
 		});
 		
 		btnAtualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAtualizar.setBounds(198, 481, 166, 47);
+		btnAtualizar.setBounds(198, 503, 166, 47);
 		frame.getContentPane().add(btnAtualizar);
 		
-		btnDeletar = new JButton("Deletar Usuário");
+		btnDeletar = new JButton("Deletar");
 		btnDeletar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UsuarioController usuarioCtrl = new UsuarioController();
@@ -207,7 +216,7 @@ public class UsuarioView {
 		});
 		
 		btnDeletar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnDeletar.setBounds(374, 481, 166, 47);
+		btnDeletar.setBounds(374, 503, 166, 47);
 		frame.getContentPane().add(btnDeletar);
 		
 		btnVoltar = new JButton("Voltar");
@@ -220,7 +229,7 @@ public class UsuarioView {
 		});
 		
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnVoltar.setBounds(597, 481, 166, 47);
+		btnVoltar.setBounds(550, 503, 224, 47);
 		frame.getContentPane().add(btnVoltar);
 		
 		txtBloco = new JTextField();

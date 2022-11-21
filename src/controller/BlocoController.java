@@ -22,6 +22,7 @@ public class BlocoController {
 		}
 	}
 	
+	//QUERY COM RESULTSET
 	public ResultSet query(String sql) {
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -52,6 +53,8 @@ public class BlocoController {
 		Integer vagasMotos = bloco.getVagasMotos();
 		Integer vagasDeficientes = bloco.getVagasDeficientes();
 		
+		//ADICIONAR REGRAS
+		
 		String sql = "INSERT INTO blocos (descricao, operador, vagas_carros, vagas_motos, vagas_deficientes) "
 				   + "VALUES ('" + descricao + "', '" + operador + "', '" + vagasCarros + "', '" + vagasMotos + "', '" + vagasDeficientes + "')";
 		
@@ -66,19 +69,23 @@ public class BlocoController {
 	public ResultSet read(Bloco bloco) {		
 		Integer id = bloco.getId();
 		
+		//ADICIONAR REGRAS
+		
 		String sql = "SELECT * FROM blocos WHERE id = '" + id + "'";
 		
 		return query(sql);
 	}
 	
 	//altera os dados do bloco com id igual ao passado como parâmetro
-	public void update(Bloco bloco) {
+	public void update(Bloco bloco) {		
 		Integer id = bloco.getId();
 		String descricao = bloco.getDescricao();
 		String operador = bloco.getOperador();
 		Integer vagasCarros = bloco.getVagasCarros();
 		Integer vagasMotos = bloco.getVagasMotos();
 		Integer vagasDeficientes = bloco.getVagasDeficientes();
+		
+		//ADICIONAR REGRAS
 		
 		String sql = "UPDATE blocos SET descricao = '" + descricao + "', operador = '" + operador + "', vagas_carros = '" + vagasCarros + "', vagas_motos = '"
 				+ vagasMotos + "', vagas_deficientes = '" + vagasDeficientes + "' WHERE id = '" + id + "'";
@@ -93,6 +100,8 @@ public class BlocoController {
 	//apaga o bloco pelo ID
 	public void delete(Integer id) {
 		
+		//ADICIONAR REGRAS
+		
 		String sql = "DELETE FROM blocos WHERE id = '" + id + "'";
 		
 		try {
@@ -105,8 +114,11 @@ public class BlocoController {
 	//retorna uma lista de todos os blocos do estacionamento
 	public List<Bloco> getList() {		
 		List<Bloco> blocos = new ArrayList<Bloco>();
-		ResultSet rset = null;		
-		String sql = "SELECT * FROM blocos ORDER BY id";
+		ResultSet rset = null;
+		
+		//ADICIONAR REGRAS
+		
+		String sql = "SELECT * FROM blocos ORDER BY descricao";
 		
 		try {					
 			rset = query(sql);
@@ -131,13 +143,16 @@ public class BlocoController {
 		return blocos;
 	}
 	
+	//retorna uma lista de descrições de cada bloco sem repetição ordenados pela descricao do bloco
 	public List<String> distinctList() {
 		List<String> descricoes = new ArrayList<String>();
 		ResultSet rset = null;
+		
+		//ADICIONAR REGRAS
+		
 		String sql = "SELECT DISTINCT descricao FROM blocos ORDER BY descricao ASC";
 		
-		try {
-			
+		try {			
 			rset = query(sql);
 			
 			while(rset.next()) {

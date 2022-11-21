@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,10 +21,12 @@ import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class BlocoView {
 
 	private JFrame frame;
+	private JLabel lblGerenciamentoDeBlocos;
 	private JTable tableBlocos;
 	private JTextField txtId;
 	private JTextField txtDescricao;
@@ -64,8 +67,13 @@ public class BlocoView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
+		lblGerenciamentoDeBlocos = new JLabel("Gerenciamento de Blocos");
+		lblGerenciamentoDeBlocos.setFont(new Font("Unispace", Font.BOLD, 25));
+		lblGerenciamentoDeBlocos.setBounds(204, 11, 345, 39);
+		frame.getContentPane().add(lblGerenciamentoDeBlocos);
+		
 		JScrollPane scrollPaneTabela = new JScrollPane();
-		scrollPaneTabela.setBounds(10, 11, 764, 395);
+		scrollPaneTabela.setBounds(10, 70, 764, 336);
 		frame.getContentPane().add(scrollPaneTabela);
 		
 		txtId = new JTextField();
@@ -88,16 +96,19 @@ public class BlocoView {
 		frame.getContentPane().add(txtOperador);
 		
 		spinnerVagasCarros = new JSpinner();
+		spinnerVagasCarros.setModel(new SpinnerNumberModel(1, 0, 50, 1));
 		spinnerVagasCarros.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		spinnerVagasCarros.setBounds(458, 417, 79, 30);
 		frame.getContentPane().add(spinnerVagasCarros);
 		
 		spinnerVagasMotos = new JSpinner();
+		spinnerVagasMotos.setModel(new SpinnerNumberModel(1, 0, 50, 1));
 		spinnerVagasMotos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		spinnerVagasMotos.setBounds(561, 417, 79, 30);
 		frame.getContentPane().add(spinnerVagasMotos);
 		
 		spinnerVagasDeficientes = new JSpinner();
+		spinnerVagasDeficientes.setModel(new SpinnerNumberModel(1, 0, 50, 1));
 		spinnerVagasDeficientes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		spinnerVagasDeficientes.setBounds(666, 417, 79, 30);
 		frame.getContentPane().add(spinnerVagasDeficientes);
@@ -109,7 +120,7 @@ public class BlocoView {
 			public void mouseClicked(MouseEvent e) {
 				DefaultTableModel tblModel = (DefaultTableModel)tableBlocos.getModel();
 				
-				Integer tblId = Integer.valueOf(tblModel.getValueAt(tableBlocos.getSelectedRow(), 0).toString());
+				String tblId = tblModel.getValueAt(tableBlocos.getSelectedRow(), 0).toString();
 				String tblDescricao = tblModel.getValueAt(tableBlocos.getSelectedRow(), 1).toString();
 				String tblOperador = tblModel.getValueAt(tableBlocos.getSelectedRow(), 2).toString();
 				Integer tblVagasCarros = Integer.valueOf(tblModel.getValueAt(tableBlocos.getSelectedRow(), 3).toString());
@@ -172,7 +183,7 @@ public class BlocoView {
 		
 		scrollPaneTabela.setViewportView(tableBlocos);
 		
-		btnCadastrar = new JButton("Cadastrar Novo");
+		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				BlocoCreateView blocoCreateView = new BlocoCreateView();
@@ -182,10 +193,10 @@ public class BlocoView {
 		});
 		
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnCadastrar.setBounds(22, 481, 166, 47);
+		btnCadastrar.setBounds(22, 503, 166, 47);
 		frame.getContentPane().add(btnCadastrar);
 		
-		btnAtualizar = new JButton(" Atualizar Dados");
+		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				Integer id = Integer.valueOf(txtId.getText());
@@ -213,10 +224,10 @@ public class BlocoView {
 		});
 		
 		btnAtualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAtualizar.setBounds(198, 481, 166, 47);
+		btnAtualizar.setBounds(198, 503, 166, 47);
 		frame.getContentPane().add(btnAtualizar);
 		
-		btnDeletar = new JButton("Deletar Bloco");
+		btnDeletar = new JButton("Deletar");
 		btnDeletar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BlocoController blocoCtrl = new BlocoController();
@@ -236,7 +247,7 @@ public class BlocoView {
 		});
 		
 		btnDeletar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnDeletar.setBounds(374, 481, 166, 47);
+		btnDeletar.setBounds(374, 503, 166, 47);
 		frame.getContentPane().add(btnDeletar);
 		
 		btnVoltar = new JButton("Voltar");
@@ -249,7 +260,7 @@ public class BlocoView {
 		});
 		
 		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnVoltar.setBounds(597, 481, 166, 47);
+		btnVoltar.setBounds(550, 503, 224, 47);
 		frame.getContentPane().add(btnVoltar);
 	}
 }

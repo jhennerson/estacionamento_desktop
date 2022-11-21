@@ -22,6 +22,7 @@ public class UsuarioController {
 		}
 	}
 	
+	//QUERY COM RESULTSET
 	public ResultSet query(String sql) {
 		try {
 			ResultSet rs = statement.executeQuery(sql);
@@ -51,6 +52,8 @@ public class UsuarioController {
 		String bloco = operador.getBloco();
 		String senhaCriptografada = Cripto.Criptografar(senha);
 		
+		//ADICIONAR REGRAS
+		
 		String sql = "INSERT INTO usuarios (username, password, bloco) VALUES ('" + nome + "', '" + senhaCriptografada + "', '" + bloco + "')";
 		
 		try {
@@ -66,6 +69,8 @@ public class UsuarioController {
 		String senha = operador.getPassword();
 		String senhaCriptografada = Cripto.Criptografar(senha);
 		
+		//ADICIONAR REGRAS
+		
 		String sql = "SELECT username, password FROM usuarios WHERE username = '" + nome + "' AND password = '" + senhaCriptografada + "'";
 		
 		return query(sql);
@@ -78,6 +83,8 @@ public class UsuarioController {
 		String senha = operador.getPassword().toString();
 		String bloco = operador.getBloco();
 		String senhaCriptografada = Cripto.Criptografar(senha);
+		
+		//ADICIONAR REGRAS
 		
 		String sql = "UPDATE usuarios SET username = '" + nome + "', password = '" + senhaCriptografada + "', bloco = '" + bloco + "' WHERE id = '" + id + "'";
 		
@@ -106,6 +113,8 @@ public class UsuarioController {
 		ResultSet rset = null;		
 		String sql = "SELECT * FROM usuarios ORDER BY id";
 		
+		//ADICIONAR REGRAS
+		
 		try {					
 			rset = query(sql);
 			
@@ -127,13 +136,16 @@ public class UsuarioController {
 		return operadores;
 	}
 	
+	//retorna uma lista de usernames sem repetição ordenados pelo username
 	public List<String> distinctList() {
 		List<String> nomes = new ArrayList<String>();
 		ResultSet rset = null;
+		
+		//ADICIONAR REGRAS
+		
 		String sql = "SELECT DISTINCT username FROM usuarios ORDER BY username ASC";
 		
-		try {
-			
+		try {			
 			rset = query(sql);
 			while(rset.next()) {
 				if(!rset.getString("username").equalsIgnoreCase("admin")) nomes.add(rset.getString("username"));

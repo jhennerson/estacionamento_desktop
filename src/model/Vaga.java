@@ -6,6 +6,7 @@ public class Vaga {
 	private Integer categoria;
 	private String bloco;
 	private Integer estado = 0;
+	private java.sql.Timestamp timestamp;
 	
 	public Vaga(Integer id, Integer categoria, String bloco, Integer estado) {
 		super();
@@ -17,6 +18,13 @@ public class Vaga {
 	
 	public Vaga(Integer categoria, String bloco) {
 		super();
+		this.categoria = categoria;
+		this.bloco = bloco;
+	}
+	
+	public Vaga(Integer id, Integer categoria, String bloco) {
+		super();
+		this.id = id;
 		this.categoria = categoria;
 		this.bloco = bloco;
 	}
@@ -54,6 +62,14 @@ public class Vaga {
 
 	public void setEstado(Integer estado) {
 		this.estado = estado;
+	}
+
+	public java.sql.Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(java.sql.Timestamp timestamp) {
+		this.timestamp = timestamp;		
 	}
 
 }
