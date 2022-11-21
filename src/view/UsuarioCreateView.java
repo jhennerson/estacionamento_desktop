@@ -12,18 +12,13 @@ import javax.swing.SwingUtilities;
 
 import controller.BlocoController;
 import controller.UsuarioController;
-import model.Bloco;
 import model.Operador;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
-import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 
 public class UsuarioCreateView {
@@ -94,6 +89,7 @@ public class UsuarioCreateView {
 		
 		String[] descricaoBlocos = blocos.toArray(String[] :: new);		
 		
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		JComboBox comboBoxBloco = new JComboBox(descricaoBlocos);
 		comboBoxBloco.setBounds(335, 248, 184, 22);
 		frame.getContentPane().add(comboBoxBloco);

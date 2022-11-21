@@ -54,7 +54,7 @@ public class Main {
 		BlocoController blocoCtrl = new BlocoController();
 		blocoCtrl.create(bloco);
 		
-		Bloco novoBloco = new Bloco(2, "Bloco B", "cesar", 1, 2, 3);
+		Bloco novoBloco = new Bloco(32,"Bloco B", "cesar", 1, 2, 3);
 		
 		blocoCtrl.update(novoBloco);
 		

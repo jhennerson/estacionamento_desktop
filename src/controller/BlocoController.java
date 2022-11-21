@@ -8,7 +8,6 @@ import java.util.List;
 
 import database.DBConnection;
 import model.Bloco;
-import model.Vaga;
 
 
 public class BlocoController {
@@ -140,6 +139,7 @@ public class BlocoController {
 		try {
 			
 			rset = query(sql);
+			
 			while(rset.next()) {
 				descricoes.add(rset.getString("descricao"));
 			}

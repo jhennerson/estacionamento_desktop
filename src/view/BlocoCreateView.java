@@ -7,9 +7,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
@@ -17,12 +15,8 @@ import javax.swing.SwingUtilities;
 import controller.BlocoController;
 import controller.UsuarioController;
 import model.Bloco;
-import model.Operador;
-import model.Usuario;
-
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -115,6 +109,7 @@ public class BlocoCreateView {
 		
 		String[] nomes = operadores.toArray(String[] :: new);		
 		
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		JComboBox comboBoxOperador = new JComboBox(nomes);
 		comboBoxOperador.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBoxOperador.setBounds(353, 176, 211, 33);

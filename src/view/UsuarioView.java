@@ -7,7 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class UsuarioDisplayView {
+public class UsuarioView {
 
 	private JFrame frame;
 	private JTable table;
@@ -16,7 +16,7 @@ public class UsuarioDisplayView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UsuarioDisplayView window = new UsuarioDisplayView();
+					UsuarioView window = new UsuarioView();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +29,7 @@ public class UsuarioDisplayView {
 		this.frame.setVisible(b);
 	}
 
-	public UsuarioDisplayView() {
+	public UsuarioView() {
 		initialize();
 	}
 
