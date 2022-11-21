@@ -139,11 +139,9 @@ public class BlocoCreateView {
 				JOptionPane.showMessageDialog(null, "Bloco cadastrado com sucesso!", "Success", JOptionPane.NO_OPTION);
 				
 				txtDescricao.setText("");
-				
+				SwingUtilities.windowForComponent(btnCadastrar).dispose();
 				AdminMainView admMainView = new AdminMainView();
-				admMainView.setVisible(true);
-				
-				SwingUtilities.windowForComponent(btnCadastrar).dispose();				
+				admMainView.setVisible(true);								
 			}
 		});
 		
@@ -153,15 +151,14 @@ public class BlocoCreateView {
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {				
 				txtDescricao.setText("");
-				AdminMainView admMainView = new AdminMainView();
-				admMainView.setVisible(true);
 				SwingUtilities.windowForComponent(btnCadastrar).dispose();
-				
+				BlocoView blocoView = new BlocoView();
+				blocoView.setVisible(true);
 			}
 		});
+		
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCancelar.setBounds(438, 438, 219, 41);
 		frame.getContentPane().add(btnCancelar);

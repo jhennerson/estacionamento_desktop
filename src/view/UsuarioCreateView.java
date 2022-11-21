@@ -97,29 +97,22 @@ public class UsuarioCreateView {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				Operador operador = new Operador();
-				UsuarioController usuCtrl = new UsuarioController();
-				
 				String nome = txtUsername.getText();
 				String senha = String.valueOf(passwordField.getPassword());
 				String bloco = String.valueOf(comboBoxBloco.getSelectedItem());
 				
-				operador.setPassword(senha);
-				operador.setUsername(nome);
-				operador.setBloco(bloco);				
+				UsuarioController usuCtrl = new UsuarioController();
+				Operador operadorUpdt = new Operador(nome, senha, bloco);
 				
-				usuCtrl.create(operador);
-				
-				JOptionPane.showMessageDialog(null, "Operador cadastrado com sucesso!", "Success", JOptionPane.NO_OPTION);
-				
-				txtUsername.setText("");
-				passwordField.setText("");
-				
-				AdminMainView admMainView = new AdminMainView();
-				admMainView.setVisible(true);
-				
-				SwingUtilities.windowForComponent(btnCadastrar).dispose();
+				try {
+					usuCtrl.create(operadorUpdt);
+					JOptionPane.showMessageDialog(null, "Operador cadastrado com sucesso!", "Success", JOptionPane.NO_OPTION);
+					SwingUtilities.windowForComponent(btnCadastrar).dispose();
+					AdminMainView admMainView = new AdminMainView();
+					admMainView.setVisible(true);					
+				} catch(Exception err) {
+					err.printStackTrace();
+				}
 			}
 		});
 		
@@ -128,18 +121,14 @@ public class UsuarioCreateView {
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				
-				txtUsername.setText("");
-				passwordField.setText("");
-				AdminMainView admMainView = new AdminMainView();
-				admMainView.setVisible(true);
-				SwingUtilities.windowForComponent(btnCadastrar).dispose();
-
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.windowForComponent(btnCancelar).dispose();
+				UsuarioView usuarioView = new UsuarioView();
+				usuarioView.setVisible(true);
 			}
 		});
-		btnCancelar.setBounds(472, 427, 117, 23);
-		frame.getContentPane().add(btnCancelar);
 		
+		btnCancelar.setBounds(472, 427, 117, 23);
+		frame.getContentPane().add(btnCancelar);		
 	}
 }

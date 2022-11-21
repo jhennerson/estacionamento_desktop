@@ -4,12 +4,14 @@ public abstract class Usuario {
 	private Integer id;
 	private String username;
 	private String password;
+	private String bloco;
 	
-	public Usuario(Integer id, String username, String password) {
+	public Usuario(Integer id, String username, String password, String bloco) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.bloco = bloco;
 	}
 	
 	public Usuario(String username, String password) {
@@ -19,7 +21,6 @@ public abstract class Usuario {
 	}
 	
 	public Usuario() {
-
 	}
 	
 	public Integer getId() {
@@ -43,5 +44,13 @@ public abstract class Usuario {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getBloco() {
+		return bloco;
+	}
+
+	public void setBloco(String bloco) {
+		this.bloco = bloco;
 	}
 }

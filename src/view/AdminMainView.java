@@ -3,9 +3,6 @@ package view;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
@@ -51,29 +48,29 @@ public class AdminMainView {
 		frame.getContentPane().add(lblTitle);
 		
 		JButton btnAdminEstacionamento = new JButton("Gerenciar Estacionamento");
+		btnAdminEstacionamento.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAdminEstacionamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				BlocoCreateView blocoCreateView = new BlocoCreateView();
-				blocoCreateView.setVisible(true);
 				SwingUtilities.windowForComponent(btnAdminEstacionamento).dispose();
-				
+				BlocoView blocoView = new BlocoView();
+				blocoView.setVisible(true);								
 			}
 		});
-		btnAdminEstacionamento.setBounds(132, 491, 176, 23);
+		
+		btnAdminEstacionamento.setBounds(132, 491, 195, 42);
 		frame.getContentPane().add(btnAdminEstacionamento);
 		
 		JButton btnAdminUsuarios = new JButton("Gerenciar Usuarios");
+		btnAdminUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAdminUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {		
-
-				UsuarioCreateView usuCadView = new UsuarioCreateView();
-				usuCadView.setVisible(true);
-				SwingUtilities.windowForComponent(btnAdminEstacionamento).dispose();				
-				
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.windowForComponent(btnAdminEstacionamento).dispose();
+				UsuarioView usuarioView = new UsuarioView();
+				usuarioView.setVisible(true);				
 			}
 		});
-		btnAdminUsuarios.setBounds(480, 491, 176, 23);
+		
+		btnAdminUsuarios.setBounds(461, 491, 195, 42);
 		frame.getContentPane().add(btnAdminUsuarios);
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,8 +14,12 @@ import model.Bloco;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.JSpinner;
 import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class BlocoView {
 
@@ -26,6 +31,10 @@ public class BlocoView {
 	private JSpinner spinnerVagasCarros;
 	private JSpinner spinnerVagasMotos;
 	private JSpinner spinnerVagasDeficientes;
+	private JButton btnCadastrar;
+	private JButton btnAtualizar;
+	private JButton btnDeletar;
+	private JButton btnVoltar;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -38,6 +47,10 @@ public class BlocoView {
 				}
 			}
 		});
+	}
+	
+	public void setVisible(boolean b) {
+		this.frame.setVisible(b);
 	}
 
 	public BlocoView() {
@@ -52,57 +65,58 @@ public class BlocoView {
 		frame.getContentPane().setLayout(null);
 		
 		JScrollPane scrollPaneTabela = new JScrollPane();
-		scrollPaneTabela.setBounds(10, 11, 764, 301);
+		scrollPaneTabela.setBounds(10, 11, 764, 395);
 		frame.getContentPane().add(scrollPaneTabela);
 		
 		txtId = new JTextField();
+		txtId.setEditable(false);
 		txtId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtId.setBounds(20, 321, 79, 30);
+		txtId.setBounds(22, 417, 79, 30);
 		frame.getContentPane().add(txtId);
 		txtId.setColumns(10);
 		
 		txtDescricao = new JTextField();
 		txtDescricao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtDescricao.setBounds(121, 321, 151, 30);
+		txtDescricao.setBounds(123, 417, 151, 30);
 		frame.getContentPane().add(txtDescricao);
 		txtDescricao.setColumns(10);
 		
 		txtOperador = new JTextField();
 		txtOperador.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtOperador.setColumns(10);
-		txtOperador.setBounds(296, 321, 133, 30);
+		txtOperador.setBounds(298, 417, 133, 30);
 		frame.getContentPane().add(txtOperador);
 		
 		spinnerVagasCarros = new JSpinner();
 		spinnerVagasCarros.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spinnerVagasCarros.setBounds(456, 321, 79, 30);
+		spinnerVagasCarros.setBounds(458, 417, 79, 30);
 		frame.getContentPane().add(spinnerVagasCarros);
 		
 		spinnerVagasMotos = new JSpinner();
 		spinnerVagasMotos.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spinnerVagasMotos.setBounds(559, 321, 79, 30);
+		spinnerVagasMotos.setBounds(561, 417, 79, 30);
 		frame.getContentPane().add(spinnerVagasMotos);
 		
 		spinnerVagasDeficientes = new JSpinner();
 		spinnerVagasDeficientes.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spinnerVagasDeficientes.setBounds(664, 321, 79, 30);
+		spinnerVagasDeficientes.setBounds(666, 417, 79, 30);
 		frame.getContentPane().add(spinnerVagasDeficientes);
 		
 		tableBlocos = new JTable();
-		tableBlocos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tableBlocos.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		tableBlocos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				DefaultTableModel tblModel = (DefaultTableModel)tableBlocos.getModel();
 				
-				String tblId = tblModel.getValueAt(tableBlocos.getSelectedRow(), 0).toString();
+				Integer tblId = Integer.valueOf(tblModel.getValueAt(tableBlocos.getSelectedRow(), 0).toString());
 				String tblDescricao = tblModel.getValueAt(tableBlocos.getSelectedRow(), 1).toString();
 				String tblOperador = tblModel.getValueAt(tableBlocos.getSelectedRow(), 2).toString();
 				Integer tblVagasCarros = Integer.valueOf(tblModel.getValueAt(tableBlocos.getSelectedRow(), 3).toString());
 				Integer tblVagasMotos = Integer.valueOf(tblModel.getValueAt(tableBlocos.getSelectedRow(), 4).toString());
 				Integer tblVagasDeficientes = Integer.valueOf(tblModel.getValueAt(tableBlocos.getSelectedRow(), 5).toString());
 				
-				txtId.setText(tblId);
+				txtId.setText(tblId.toString());
 				txtDescricao.setText(tblDescricao);
 				txtOperador.setText(tblOperador);
 				spinnerVagasCarros.setValue(tblVagasCarros);
@@ -155,6 +169,87 @@ public class BlocoView {
 			
 			tblModel.addRow(data);
 		}
+		
 		scrollPaneTabela.setViewportView(tableBlocos);
+		
+		btnCadastrar = new JButton("Cadastrar Novo");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				BlocoCreateView blocoCreateView = new BlocoCreateView();
+				blocoCreateView.setVisible(true);
+				SwingUtilities.windowForComponent(btnCadastrar).dispose();				
+			}
+		});
+		
+		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnCadastrar.setBounds(22, 481, 166, 47);
+		frame.getContentPane().add(btnCadastrar);
+		
+		btnAtualizar = new JButton(" Atualizar Dados");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				Integer id = Integer.valueOf(txtId.getText());
+				String descricao = txtDescricao.getText();
+				String operador = txtOperador.getText();
+				Integer vagasCarros = (int)spinnerVagasCarros.getValue();
+				Integer vagasMotos = (int)spinnerVagasMotos.getValue();
+				Integer vagasDeficientes = (int)spinnerVagasDeficientes.getValue();
+				
+				BlocoController blocoCtrl = new BlocoController();
+				
+				Bloco blocoUpdt = new Bloco(id, descricao, operador, vagasCarros, vagasMotos, vagasDeficientes);
+				
+				try {
+					blocoCtrl.update(blocoUpdt);
+					JOptionPane.showMessageDialog(null, "Dados do bloco atualizados!", "Success", JOptionPane.NO_OPTION);					
+					SwingUtilities.windowForComponent(btnAtualizar).dispose();
+					BlocoView blocoView = new BlocoView();
+					blocoView.setVisible(true);					
+				} catch(Exception err) {
+					err.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Falha ao atualizar os dados...", "Ops", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		btnAtualizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAtualizar.setBounds(198, 481, 166, 47);
+		frame.getContentPane().add(btnAtualizar);
+		
+		btnDeletar = new JButton("Deletar Bloco");
+		btnDeletar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BlocoController blocoCtrl = new BlocoController();
+				Integer id = Integer.valueOf(txtId.getText());
+				
+				try {
+					blocoCtrl.delete(id);
+					JOptionPane.showMessageDialog(null, "Bloco removido da base de dados!", "Success", JOptionPane.NO_OPTION);					
+					SwingUtilities.windowForComponent(btnAtualizar).dispose();
+					BlocoView blocoView = new BlocoView();
+					blocoView.setVisible(true);					
+				} catch(Exception err) {
+					err.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Falha ao remover...", "Ops", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		btnDeletar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnDeletar.setBounds(374, 481, 166, 47);
+		frame.getContentPane().add(btnDeletar);
+		
+		btnVoltar = new JButton("Voltar");
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.windowForComponent(btnVoltar).dispose();
+				AdminMainView admMainView = new AdminMainView();
+				admMainView.setVisible(true);				
+			}
+		});
+		
+		btnVoltar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnVoltar.setBounds(597, 481, 166, 47);
+		frame.getContentPane().add(btnVoltar);
 	}
 }

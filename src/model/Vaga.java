@@ -22,7 +22,6 @@ public class Vaga {
 	}
 
 	public Vaga() {
-
 	}
 
 	public Integer getId() {

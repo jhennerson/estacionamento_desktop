@@ -2,7 +2,6 @@ package view;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
@@ -91,14 +90,14 @@ public class LoginView {
 					if(rsUsuarioCtrl.next()) {						
 						if(rsUsuarioCtrl.getString("username").equalsIgnoreCase("admin")) {
 							JOptionPane.showMessageDialog(null, "Seja bem vindo Administrador!", "Success", JOptionPane.NO_OPTION);
-							AdminMainView admMainView = new AdminMainView();
-							admMainView.setVisible(true);
 							SwingUtilities.windowForComponent(btnEntrar).dispose();
+							AdminMainView admMainView = new AdminMainView();
+							admMainView.setVisible(true);							
 						} else {
 							JOptionPane.showMessageDialog(null, "Logado com sucesso!", "Success", JOptionPane.NO_OPTION);
-							MainView mainView = new MainView();
-							mainView.setVisible(true);
 							SwingUtilities.windowForComponent(btnEntrar).dispose();
+							MainView mainView = new MainView();
+							mainView.setVisible(true);							
 						}						
 					} else {
 						JOptionPane.showMessageDialog(null, "Login ou senha inválido!", "Ops", JOptionPane.ERROR_MESSAGE);
