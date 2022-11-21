@@ -4,10 +4,10 @@ public class Vaga {
 	
 	private Integer id;
 	private Integer categoria;
-	private Integer bloco;
+	private String bloco;
 	private Integer estado = 0;
 	
-	public Vaga(Integer id, Integer categoria, Integer bloco, Integer estado) {
+	public Vaga(Integer id, Integer categoria, String bloco, Integer estado) {
 		super();
 		this.id = id;
 		this.categoria = categoria;
@@ -15,7 +15,7 @@ public class Vaga {
 		this.estado = estado;
 	}
 	
-	public Vaga(Integer categoria, Integer bloco) {
+	public Vaga(Integer categoria, String bloco) {
 		super();
 		this.categoria = categoria;
 		this.bloco = bloco;
@@ -41,11 +41,11 @@ public class Vaga {
 		this.categoria = categoria;
 	}
 
-	public Integer getBloco() {
+	public String getBloco() {
 		return bloco;
 	}
 
-	public void setBloco(Integer bloco) {
+	public void setBloco(String bloco) {
 		this.bloco = bloco;
 	}
 

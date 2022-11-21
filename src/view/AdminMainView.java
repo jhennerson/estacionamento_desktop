@@ -54,8 +54,8 @@ public class AdminMainView {
 		btnAdminEstacionamento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				BlocoCadastroView blocoCadastroView = new BlocoCadastroView();
-				blocoCadastroView.setVisible(true);
+				BlocoCreateView blocoCreateView = new BlocoCreateView();
+				blocoCreateView.setVisible(true);
 				SwingUtilities.windowForComponent(btnAdminEstacionamento).dispose();
 				
 			}
@@ -67,7 +67,7 @@ public class AdminMainView {
 		btnAdminUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {		
 
-				UsuarioCadastroView usuCadView = new UsuarioCadastroView();
+				UsuarioCreateView usuCadView = new UsuarioCreateView();
 				usuCadView.setVisible(true);
 				SwingUtilities.windowForComponent(btnAdminEstacionamento).dispose();				
 				

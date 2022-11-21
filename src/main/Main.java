@@ -32,9 +32,9 @@ public class Main {
 		
 		usuCtr.delete(12);
 		
-		Vaga vaga1 = new Vaga(1, 1);
-		Vaga vaga2 = new Vaga(2, 2);
-		Vaga vaga3 = new Vaga(2, 3, 3, 1);
+		Vaga vaga1 = new Vaga(1, "Bloco B");
+		Vaga vaga2 = new Vaga(2, "Bloco A");
+		Vaga vaga3 = new Vaga(2, 3, "Bloco C", 1);
 		
 		VagaController vagaCtrl = new VagaController();
 		
@@ -45,7 +45,7 @@ public class Main {
 		vagaCtrl.delete(3);
 		
 		
-		Bloco bloco = new Bloco("Bloco A", "conrad");
+		Bloco bloco = new Bloco("Bloco D", "conrad");
 		
 		bloco.addVaga(vaga1);
 		bloco.addVaga(vaga2);

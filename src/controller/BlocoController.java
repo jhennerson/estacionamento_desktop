@@ -131,5 +131,24 @@ public class BlocoController {
 		
 		return blocos;
 	}
+	
+	public List<String> distinctList() {
+		List<String> descricoes = new ArrayList<String>();
+		ResultSet rset = null;
+		String sql = "SELECT DISTINCT descricao FROM blocos ORDER BY descricao ASC";
+		
+		try {
+			
+			rset = query(sql);
+			while(rset.next()) {
+				descricoes.add(rset.getString("descricao"));
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return descricoes;
+	}
 
 }

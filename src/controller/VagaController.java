@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import database.DBConnection;
+import model.Operador;
 import model.Vaga;
 
 public class VagaController {
@@ -47,7 +48,7 @@ public class VagaController {
 	//salva a vaga no banco de dados
 	public void create(Vaga vaga) {
 		Integer categoria = vaga.getCategoria();
-		Integer bloco = vaga.getBloco();
+		String bloco = vaga.getBloco();
 		Integer estado = vaga.getEstado();
 		
 		String sql = "INSERT INTO vagas (categoria, bloco, estado) "
@@ -73,7 +74,7 @@ public class VagaController {
 	public void update(Vaga vaga) {
 		Integer id = vaga.getId();
 		Integer categoria = vaga.getCategoria();
-		Integer bloco = vaga.getBloco();
+		String bloco = vaga.getBloco();
 		Integer estado = vaga.getEstado();
 		
 		String sql = "UPDATE vagas SET categoria = '" + categoria + "', bloco = '" + bloco + "', estado = '" + estado + "' WHERE id = '" + id + "'";
@@ -111,7 +112,33 @@ public class VagaController {
 				
 				vaga.setId(rset.getInt("id"));
 				vaga.setCategoria(rset.getInt("categoria"));
-				vaga.setBloco(rset.getInt("bloco"));
+				vaga.setBloco(rset.getString("bloco"));
+				vaga.setEstado(rset.getInt("estado"));
+				
+				vagas.add(vaga);
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vagas;
+	}
+	
+	public List<Vaga> getList(Operador operador) {		
+		List<Vaga> vagas = new ArrayList<Vaga>();
+		ResultSet rset = null;		
+		String sql = "SELECT * FROM vagas WHERE bloco = " + operador.getUsername() + " ORDER BY id";
+		
+		try {					
+			rset = query(sql);
+			
+			while(rset.next()) {
+				Vaga vaga = new Vaga();
+				
+				vaga.setId(rset.getInt("id"));
+				vaga.setCategoria(rset.getInt("categoria"));
+				vaga.setBloco(rset.getString("bloco"));
 				vaga.setEstado(rset.getInt("estado"));
 				
 				vagas.add(vaga);

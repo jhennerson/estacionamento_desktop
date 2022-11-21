@@ -126,4 +126,23 @@ public class UsuarioController {
 		
 		return operadores;
 	}
+	
+	public List<String> distinctList() {
+		List<String> nomes = new ArrayList<String>();
+		ResultSet rset = null;
+		String sql = "SELECT DISTINCT username FROM usuarios ORDER BY username ASC";
+		
+		try {
+			
+			rset = query(sql);
+			while(rset.next()) {
+				if(!rset.getString("username").equalsIgnoreCase("admin")) nomes.add(rset.getString("username"));
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return nomes;
+	}
 }

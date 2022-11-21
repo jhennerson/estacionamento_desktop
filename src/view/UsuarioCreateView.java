@@ -26,7 +26,7 @@ import javax.swing.JToggleButton;
 import javax.swing.JSpinner;
 import javax.swing.JComboBox;
 
-public class UsuarioCadastroView {
+public class UsuarioCreateView {
 
 	private JFrame frame;
 	private JTextField txtUsername;
@@ -36,7 +36,7 @@ public class UsuarioCadastroView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UsuarioCadastroView window = new UsuarioCadastroView();
+					UsuarioCreateView window = new UsuarioCreateView();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class UsuarioCadastroView {
 		this.frame.setVisible(b);
 	}
 
-	public UsuarioCadastroView() {
+	public UsuarioCreateView() {
 		initialize();
 	}
 
@@ -90,13 +90,9 @@ public class UsuarioCadastroView {
 		
 		BlocoController blocosCtrl = new BlocoController();
 		
-		List<Bloco> blocos = blocosCtrl.getList();
+		List<String> blocos = blocosCtrl.distinctList();
 		
-		String[] descricaoBlocos = new String[blocos.size()];
-		
-		for(int i = 0; i < blocos.size(); i++) {
-			descricaoBlocos[i] = blocos.get(i).getDescricao();
-		}
+		String[] descricaoBlocos = blocos.toArray(String[] :: new);		
 		
 		JComboBox comboBoxBloco = new JComboBox(descricaoBlocos);
 		comboBoxBloco.setBounds(335, 248, 184, 22);

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
-public class BlocoCadastroView {
+public class BlocoCreateView {
 
 	private JFrame frame;
 	private JTextField txtDescricao;
@@ -35,7 +35,7 @@ public class BlocoCadastroView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BlocoCadastroView window = new BlocoCadastroView();
+					BlocoCreateView window = new BlocoCreateView();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +48,7 @@ public class BlocoCadastroView {
 		this.frame.setVisible(b);
 	}
 
-	public BlocoCadastroView() {
+	public BlocoCreateView() {
 		initialize();
 	}
 
@@ -111,17 +111,11 @@ public class BlocoCadastroView {
 		
 		UsuarioController usuarioCtrl = new UsuarioController();
 		
-		List<Usuario> operadores = usuarioCtrl.getList();
+		List<String> operadores = usuarioCtrl.distinctList();
 		
-		String[] nomesOperadores = new String[operadores.size()];		
+		String[] nomes = operadores.toArray(String[] :: new);		
 		
-		for(int i = 1; i < operadores.size(); i++) {
-			nomesOperadores[i] = operadores.get(i).getUsername();
-		}
-		
-		nomesOperadores[0] = "";
-		
-		JComboBox comboBoxOperador = new JComboBox(nomesOperadores);
+		JComboBox comboBoxOperador = new JComboBox(nomes);
 		comboBoxOperador.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBoxOperador.setBounds(353, 176, 211, 33);
 		frame.getContentPane().add(comboBoxOperador);
