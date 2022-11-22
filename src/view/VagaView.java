@@ -36,14 +36,16 @@ public class VagaView {
 	private JTextField txtCategoria;
 	private JTextField txtBloco;
 	private JButton btnVoltar;
-	private JTextField txtEstado;
-	private JTextField txtTimestamp;
+	private JFormattedTextField txtValorTotal;
 	private JButton btnRelatorio;
 	private JButton btnCalcular;
 	private JLabel lblVagasLivres;
 	private JTextField txtVagasLivres;
 	private JLabel lblVagasOcupadas;
 	private JTextField txtVagasOcupadas;
+	private JLabel lblTotal;
+	private JButton btnFaturar;
+	private JButton btnNewButton;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -119,31 +121,24 @@ public class VagaView {
 		txtBloco.setBounds(329, 417, 208, 30);
 		frame.getContentPane().add(txtBloco);
 		
-		txtEstado = new JTextField();
-		txtEstado.setEditable(false);
-		txtEstado.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtEstado.setColumns(10);
-		txtEstado.setBounds(111, 458, 208, 30);
-		frame.getContentPane().add(txtEstado);
-		
-		txtTimestamp = new JTextField();
-		txtTimestamp.setEditable(false);
-		txtTimestamp.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtTimestamp.setColumns(10);
-		txtTimestamp.setBounds(329, 458, 208, 30);
-		frame.getContentPane().add(txtTimestamp);
+		txtValorTotal = new JFormattedTextField();
+		txtValorTotal.setHorizontalAlignment(SwingConstants.CENTER);
+		txtValorTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtValorTotal.setColumns(10);
+		txtValorTotal.setBounds(329, 457, 101, 31);
+		frame.getContentPane().add(txtValorTotal);
 		
 		JFormattedTextField ftfValor = new JFormattedTextField();
-		ftfValor.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		ftfValor.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		ftfValor.setHorizontalAlignment(SwingConstants.CENTER);
-		ftfValor.setBounds(10, 503, 88, 47);
+		ftfValor.setBounds(134, 458, 101, 30);
 		frame.getContentPane().add(ftfValor);
 		formatarCampo(ftfValor);
 		
-		JLabel lblCalculo = new JLabel("Tempo Ocupado");
-		lblCalculo.setFont(new Font("Tahoma", Font.BOLD, 10));
+		JLabel lblCalculo = new JLabel("Tempo ocupado:");
+		lblCalculo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblCalculo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCalculo.setBounds(10, 458, 88, 30);
+		lblCalculo.setBounds(10, 457, 119, 30);
 		frame.getContentPane().add(lblCalculo);
 		
 		lblVagasLivres = new JLabel("Vagas Livres:");
@@ -186,14 +181,14 @@ public class VagaView {
 				String tblId = tblModel.getValueAt(tableVagas.getSelectedRow(), 0).toString();
 				String tblCategoria = tblModel.getValueAt(tableVagas.getSelectedRow(), 1).toString();
 				String tblBloco = tblModel.getValueAt(tableVagas.getSelectedRow(), 2).toString();
-				String tblEstado = tblModel.getValueAt(tableVagas.getSelectedRow(), 3).toString();
+				//String tblEstado = tblModel.getValueAt(tableVagas.getSelectedRow(), 3).toString();
 				String tblTimestamp = tblModel.getValueAt(tableVagas.getSelectedRow(), 4).toString();
 				
 				txtId.setText(tblId.toString());
 				txtCategoria.setText(tblCategoria);
 				txtBloco.setText(tblBloco);
-				txtEstado.setText(tblEstado);
-				txtTimestamp.setText(tblTimestamp);								
+				//txtEstado.setText(tblEstado);
+				//txtValorTotal.setText(tblTimestamp);								
 			}
 		});
 
@@ -256,9 +251,13 @@ public class VagaView {
 		btnAlterarEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
 				try {
-					String id = txtId.getText();
-					String estado = (txtEstado.getText().equalsIgnoreCase("Livre")) ? "Ocupado" : "Livre";
+					DefaultTableModel tblModel = (DefaultTableModel)tableVagas.getModel();
 					VagaController vagaCtrl = new VagaController();
+					String tblEstado = tblModel.getValueAt(tableVagas.getSelectedRow(), 3).toString();
+					
+					String id = txtId.getText();
+					String estado = (tblEstado.equalsIgnoreCase("Livre")) ? "Ocupado" : "Livre";					
+					
 					vagaCtrl.alteraEstado(Integer.valueOf(id));
 					JOptionPane.showMessageDialog(null, "Estado da vaga alterado para " + estado, "Success", JOptionPane.NO_OPTION);	
 					SwingUtilities.windowForComponent(btnAlterarEstado).dispose();
@@ -277,7 +276,7 @@ public class VagaView {
 		
 		btnRelatorio = new JButton("Relatório");
 		btnRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnRelatorio.setBounds(329, 503, 211, 47);
+		btnRelatorio.setBounds(376, 503, 164, 47);
 		frame.getContentPane().add(btnRelatorio);
 		
 		btnCalcular = new JButton("Calcular");
@@ -288,6 +287,7 @@ public class VagaView {
 					Float horas = Float.valueOf(valoresTempo[0]);
 					Float minutos = Float.valueOf(valoresTempo[1]);
 					Float total = (float) ((horas + (minutos / 60)) * 5.00);
+					txtValorTotal.setText(String.format("R$: %.2f", total));
 					
 					JOptionPane.showMessageDialog(null, String.format("Valor total a cobrar: R$ %.2f", total) + ".", "Success", JOptionPane.NO_OPTION);					
 				} catch (Exception err) {
@@ -297,7 +297,30 @@ public class VagaView {
 		});
 		
 		btnCalcular.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnCalcular.setBounds(111, 503, 208, 47);
+		btnCalcular.setBounds(10, 503, 164, 47);
 		frame.getContentPane().add(btnCalcular);		
+		
+		lblTotal = new JLabel("Valor total:");
+		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTotal.setBounds(247, 458, 72, 30);
+		frame.getContentPane().add(lblTotal);
+		
+		btnFaturar = new JButton("Faturar");
+		btnFaturar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnFaturar.setBounds(193, 503, 164, 47);
+		frame.getContentPane().add(btnFaturar);
+		
+		btnNewButton = new JButton("Limpar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ftfValor.setText("");
+				txtValorTotal.setText("");
+			}
+		});
+		
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton.setBounds(438, 457, 102, 31);
+		frame.getContentPane().add(btnNewButton);
 	}
 }

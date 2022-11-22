@@ -120,8 +120,7 @@ public class BlocoCreateView {
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {				
 				Bloco bloco = new Bloco();
 				
 				BlocoController blocoCtrl = new BlocoController();
