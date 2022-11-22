@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import controller.VagaController;
 import model.Vaga;
@@ -19,10 +20,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.util.List;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class VagaView {
 
@@ -37,6 +41,10 @@ public class VagaView {
 	private JTextField txtTimestamp;
 	private JButton btnRelatorio;
 	private JButton btnCalcular;
+	private JLabel lblVagasLivres;
+	private JTextField txtVagasLivres;
+	private JLabel lblVagasOcupadas;
+	private JTextField txtVagasOcupadas;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -56,11 +64,27 @@ public class VagaView {
 	}
 	
 	public VagaView() {
-		initialize();
+		initialize();		
+	}
+	
+	private void formatarCampo(JFormattedTextField formattedTextField) {		
+		MaskFormatter mask;
+		try {
+			mask = new MaskFormatter("##:##");
+			mask.install(formattedTextField);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}		
 	}
 
 	@SuppressWarnings("serial")
 	private void initialize() {
+		
+		VagaController vagaCtrl = new VagaController();
+		
+		Integer vagasLivres = vagaCtrl.countEstado(0);
+		Integer vagasOcupadas = vagaCtrl.countEstado(1);
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,13 +96,13 @@ public class VagaView {
 		frame.getContentPane().add(lblGerenciamentoDeBlocos);
 		
 		JScrollPane scrollPaneTabela = new JScrollPane();
-		scrollPaneTabela.setBounds(10, 70, 764, 336);
+		scrollPaneTabela.setBounds(10, 102, 764, 304);
 		frame.getContentPane().add(scrollPaneTabela);
 		
 		txtId = new JTextField();
 		txtId.setEditable(false);
 		txtId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtId.setBounds(22, 417, 79, 30);
+		txtId.setBounds(10, 417, 91, 30);
 		frame.getContentPane().add(txtId);
 		txtId.setColumns(10);
 		
@@ -110,6 +134,49 @@ public class VagaView {
 		txtTimestamp.setBounds(329, 458, 208, 30);
 		frame.getContentPane().add(txtTimestamp);
 		
+		JFormattedTextField ftfValor = new JFormattedTextField();
+		ftfValor.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		ftfValor.setHorizontalAlignment(SwingConstants.CENTER);
+		ftfValor.setBounds(10, 475, 88, 75);
+		frame.getContentPane().add(ftfValor);
+		formatarCampo(ftfValor);
+		
+		JLabel lblCalculo = new JLabel("Tempo Ocupado");
+		lblCalculo.setFont(new Font("Tahoma", Font.BOLD, 10));
+		lblCalculo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCalculo.setBounds(10, 458, 88, 13);
+		frame.getContentPane().add(lblCalculo);
+		
+		lblVagasLivres = new JLabel("Vagas Livres:");
+		lblVagasLivres.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblVagasLivres.setBounds(100, 61, 104, 30);
+		frame.getContentPane().add(lblVagasLivres);
+		
+		txtVagasLivres = new JTextField();
+		txtVagasLivres.setBackground(new Color(128, 255, 128));
+		txtVagasLivres.setHorizontalAlignment(SwingConstants.CENTER);
+		txtVagasLivres.setFont(new Font("Tahoma", Font.BOLD, 24));
+		txtVagasLivres.setEditable(false);
+		txtVagasLivres.setBounds(214, 61, 133, 30);
+		frame.getContentPane().add(txtVagasLivres);
+		txtVagasLivres.setColumns(10);
+		txtVagasLivres.setText(vagasLivres.toString());
+		
+		lblVagasOcupadas = new JLabel("Vagas Ocupadas:");
+		lblVagasOcupadas.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblVagasOcupadas.setBounds(419, 61, 136, 30);
+		frame.getContentPane().add(lblVagasOcupadas);
+		
+		txtVagasOcupadas = new JTextField();
+		txtVagasOcupadas.setBackground(new Color(192, 192, 192));
+		txtVagasOcupadas.setHorizontalAlignment(SwingConstants.CENTER);
+		txtVagasOcupadas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		txtVagasOcupadas.setEditable(false);
+		txtVagasOcupadas.setColumns(10);
+		txtVagasOcupadas.setBounds(565, 61, 133, 30);
+		frame.getContentPane().add(txtVagasOcupadas);
+		txtVagasOcupadas.setText(vagasOcupadas.toString());
+		
 		tableVagas = new JTable();
 		tableVagas.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		tableVagas.addMouseListener(new MouseAdapter() {
@@ -127,8 +194,7 @@ public class VagaView {
 				txtCategoria.setText(tblCategoria);
 				txtBloco.setText(tblBloco);
 				txtEstado.setText(tblEstado);
-				txtTimestamp.setText(tblTimestamp);
-								
+				txtTimestamp.setText(tblTimestamp);								
 			}
 		});
 
@@ -146,14 +212,13 @@ public class VagaView {
 				return columnEditables[column];
 			}
 		});
+		
 		tableVagas.getColumnModel().getColumn(0).setPreferredWidth(45);
 		tableVagas.getColumnModel().getColumn(1).setPreferredWidth(130);
 		tableVagas.getColumnModel().getColumn(2).setPreferredWidth(154);
 		tableVagas.getColumnModel().getColumn(3).setPreferredWidth(45);
 		tableVagas.getColumnModel().getColumn(4).setPreferredWidth(130);
-		
-		VagaController vagaCtrl = new VagaController();
-		
+				
 		List<Vaga> vagas = vagaCtrl.getList();
 		
 		for(Vaga v : vagas) {
@@ -209,18 +274,30 @@ public class VagaView {
 		frame.getContentPane().add(btnRelatorio);
 		
 		btnCalcular = new JButton("Calcular");
+		btnCalcular.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String[] valoresTempo = ftfValor.getText().split(":");
+					Float horas = Float.valueOf(valoresTempo[0]);
+					Float minutos = Float.valueOf(valoresTempo[1]);
+					Float total = (float) ((horas + (minutos / 60)) * 5.00);
+					
+					System.out.println(total);
+					System.out.println(minutos / 60 * 5);
+					
+					JOptionPane.showMessageDialog(null, String.format("Valor total a cobrar: R$ %.2f", total) + ".", "Success", JOptionPane.NO_OPTION);
+					
+				} catch (Exception err) {
+					err.printStackTrace();
+				}
+			}
+		});
 		btnCalcular.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCalcular.setBounds(111, 503, 208, 47);
 		frame.getContentPane().add(btnCalcular);
 		
-		JFormattedTextField ftfValor = new JFormattedTextField();
-		ftfValor.setBounds(21, 503, 80, 47);
-		frame.getContentPane().add(ftfValor);
 		
-		JLabel lblCalculo = new JLabel("Valor a Pagar");
-		lblCalculo.setFont(new Font("Verdana", Font.BOLD, 10));
-		lblCalculo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCalculo.setBounds(21, 458, 80, 30);
-		frame.getContentPane().add(lblCalculo);
 	}
+	
+
 }

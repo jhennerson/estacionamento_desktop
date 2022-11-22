@@ -42,18 +42,6 @@ CREATE TABLE `blocos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `estacionamento`
---
-
-CREATE TABLE `estacionamento` (
-  `cnpj` int(14) NOT NULL,
-  `nome` varchar(32) NOT NULL,
-  `endereco` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `usuarios`
 --
 
@@ -81,7 +69,8 @@ CREATE TABLE `vagas` (
   `id` int(11) NOT NULL,
   `categoria` tinyint(4) NOT NULL,
   `bloco` varchar(16) NOT NULL,
-  `estado` tinyint(1) NOT NULL
+  `estado` tinyint(1) NOT NULL,
+  `timestamp` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -93,12 +82,6 @@ CREATE TABLE `vagas` (
 --
 ALTER TABLE `blocos`
   ADD PRIMARY KEY (`id`);
-
---
--- Índices para tabela `estacionamento`
---
-ALTER TABLE `estacionamento`
-  ADD PRIMARY KEY (`cnpj`);
 
 --
 -- Índices para tabela `usuarios`
@@ -120,25 +103,19 @@ ALTER TABLE `vagas`
 -- AUTO_INCREMENT de tabela `blocos`
 --
 ALTER TABLE `blocos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-
---
--- AUTO_INCREMENT de tabela `estacionamento`
---
-ALTER TABLE `estacionamento`
-  MODIFY `cnpj` int(14) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT de tabela `vagas`
 --
 ALTER TABLE `vagas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=168;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

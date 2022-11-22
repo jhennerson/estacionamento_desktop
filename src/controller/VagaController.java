@@ -100,6 +100,18 @@ public class VagaController {
 		}
 	}
 	
+	//apaga todas as vagas do respectivo bloco
+	public void deleteAll(String bloco) {
+		
+		String sql = "DELETE FROM vagas WHERE bloco = '" + bloco + "'";
+		
+		try {
+			this.execute(sql);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//retorna uma lista de todas as vagas do bloco
 	public List<Vaga> getList() {		
 		List<Vaga> vagas = new ArrayList<Vaga>();
@@ -206,6 +218,24 @@ public class VagaController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}		
+	}
+	
+	//retorna a quantidade de vagas de acordo com o estado informado
+	public Integer countEstado(Integer estado) {
+		ResultSet rset = null;		
+		String sql = "SELECT COUNT(*) AS count FROM vagas WHERE estado = '" + estado + "'";
+		
+		Integer count = 0;
+		
+		try {
+			rset = query(sql);
+			
+			if(rset.next()) count = rset.getInt("count");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 }

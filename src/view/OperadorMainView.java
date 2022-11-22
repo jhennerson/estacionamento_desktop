@@ -1,17 +1,16 @@
 package view;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-public class AdminMainView {
+public class OperadorMainView {
 
 	private JFrame frame;
 	private JButton btnSair;
@@ -20,7 +19,7 @@ public class AdminMainView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminMainView window = new AdminMainView();
+					OperadorMainView window = new OperadorMainView();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -32,8 +31,8 @@ public class AdminMainView {
 	public void setVisible(boolean b) {
 		this.frame.setVisible(b);
 	}
-
-	public AdminMainView() {
+	
+	public OperadorMainView() {
 		initialize();
 	}
 
@@ -43,9 +42,9 @@ public class AdminMainView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Parkinson Admin Mode");
+		JLabel lblTitle = new JLabel("Parkinson Control Center");
 		lblTitle.setFont(new Font("Unispace", Font.BOLD, 25));
-		lblTitle.setBounds(237, 28, 315, 31);
+		lblTitle.setBounds(205, 28, 366, 31);
 		frame.getContentPane().add(lblTitle);
 		
 		JButton btnAdminBlocos = new JButton("Gerenciar Blocos");
@@ -60,19 +59,6 @@ public class AdminMainView {
 		
 		btnAdminBlocos.setBounds(237, 220, 315, 67);
 		frame.getContentPane().add(btnAdminBlocos);
-		
-		JButton btnAdminUsuarios = new JButton("Gerenciar Usuarios");
-		btnAdminUsuarios.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAdminUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
-				UsuarioView usuarioView = new UsuarioView();
-				usuarioView.setVisible(true);				
-			}
-		});
-		
-		btnAdminUsuarios.setBounds(237, 298, 315, 76);
-		frame.getContentPane().add(btnAdminUsuarios);
 		
 		JButton btnAdminVagas = new JButton("Gerenciar Vagas");
 		btnAdminVagas.addActionListener(new ActionListener() {
@@ -99,4 +85,5 @@ public class AdminMainView {
 		btnSair.setBounds(615, 519, 159, 31);
 		frame.getContentPane().add(btnSair);
 	}
+
 }

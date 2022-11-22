@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import controller.BlocoController;
+import controller.VagaController;
 import model.Bloco;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -231,10 +232,13 @@ public class BlocoView {
 		btnDeletar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BlocoController blocoCtrl = new BlocoController();
+				VagaController vagaCtrl = new VagaController();
 				Integer id = Integer.valueOf(txtId.getText());
+				String descricao = txtDescricao.getText();
 				
 				try {
 					blocoCtrl.delete(id);
+					vagaCtrl.deleteAll(descricao);
 					JOptionPane.showMessageDialog(null, "Bloco removido da base de dados!", "Success", JOptionPane.NO_OPTION);					
 					SwingUtilities.windowForComponent(btnAtualizar).dispose();
 					BlocoView blocoView = new BlocoView();

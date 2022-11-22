@@ -92,12 +92,12 @@ public class LoginView {
 							JOptionPane.showMessageDialog(null, "Seja bem vindo Administrador!", "Success", JOptionPane.NO_OPTION);
 							SwingUtilities.windowForComponent(btnEntrar).dispose();
 							AdminMainView admMainView = new AdminMainView();
-							admMainView.setVisible(true);							
+							admMainView.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(null, "Logado com sucesso!", "Success", JOptionPane.NO_OPTION);
 							SwingUtilities.windowForComponent(btnEntrar).dispose();
-							VagaView vagaView = new VagaView();
-							vagaView.setVisible(true);							
+							OperadorMainView opMainView = new OperadorMainView();
+							opMainView.setVisible(true);
 						}						
 					} else {
 						JOptionPane.showMessageDialog(null, "Login ou senha inválido!", "Ops", JOptionPane.ERROR_MESSAGE);
