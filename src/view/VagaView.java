@@ -22,7 +22,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.util.List;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
@@ -137,14 +136,14 @@ public class VagaView {
 		JFormattedTextField ftfValor = new JFormattedTextField();
 		ftfValor.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		ftfValor.setHorizontalAlignment(SwingConstants.CENTER);
-		ftfValor.setBounds(10, 475, 88, 75);
+		ftfValor.setBounds(10, 503, 88, 47);
 		frame.getContentPane().add(ftfValor);
 		formatarCampo(ftfValor);
 		
 		JLabel lblCalculo = new JLabel("Tempo Ocupado");
 		lblCalculo.setFont(new Font("Tahoma", Font.BOLD, 10));
 		lblCalculo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCalculo.setBounds(10, 458, 88, 13);
+		lblCalculo.setBounds(10, 458, 88, 30);
 		frame.getContentPane().add(lblCalculo);
 		
 		lblVagasLivres = new JLabel("Vagas Livres:");
@@ -255,12 +254,20 @@ public class VagaView {
 		
 		JButton btnAlterarEstado = new JButton("Alterar Estado");
 		btnAlterarEstado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VagaController vagaCtrl = new VagaController();
-				vagaCtrl.alteraEstado(Integer.valueOf(txtId.getText()));
-				SwingUtilities.windowForComponent(btnAlterarEstado).dispose();
-				VagaView refresh = new VagaView();
-				refresh.setVisible(true);				
+			public void actionPerformed(ActionEvent e) {				
+				try {
+					String id = txtId.getText();
+					String estado = (txtEstado.getText().equalsIgnoreCase("Livre")) ? "Ocupado" : "Livre";
+					VagaController vagaCtrl = new VagaController();
+					vagaCtrl.alteraEstado(Integer.valueOf(id));
+					JOptionPane.showMessageDialog(null, "Estado da vaga alterado para " + estado, "Success", JOptionPane.NO_OPTION);	
+					SwingUtilities.windowForComponent(btnAlterarEstado).dispose();
+					VagaView refresh = new VagaView();
+					refresh.setVisible(true);		
+									
+				} catch (Exception err) {
+					JOptionPane.showMessageDialog(null, "Selecione uma vaga!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		
@@ -282,22 +289,15 @@ public class VagaView {
 					Float minutos = Float.valueOf(valoresTempo[1]);
 					Float total = (float) ((horas + (minutos / 60)) * 5.00);
 					
-					System.out.println(total);
-					System.out.println(minutos / 60 * 5);
-					
-					JOptionPane.showMessageDialog(null, String.format("Valor total a cobrar: R$ %.2f", total) + ".", "Success", JOptionPane.NO_OPTION);
-					
+					JOptionPane.showMessageDialog(null, String.format("Valor total a cobrar: R$ %.2f", total) + ".", "Success", JOptionPane.NO_OPTION);					
 				} catch (Exception err) {
-					err.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Insira o tempo de ocupação da vaga!", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
+		
 		btnCalcular.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnCalcular.setBounds(111, 503, 208, 47);
-		frame.getContentPane().add(btnCalcular);
-		
-		
+		frame.getContentPane().add(btnCalcular);		
 	}
-	
-
 }
