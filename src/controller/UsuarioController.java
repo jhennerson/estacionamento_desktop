@@ -52,7 +52,15 @@ public class UsuarioController {
 		String bloco = operador.getBloco();
 		String senhaCriptografada = Cripto.Criptografar(senha);
 		
-		//ADICIONAR REGRAS
+		if(nome == null || nome.isBlank() || senha == null || senha.isBlank() || bloco == null || bloco.isBlank()){
+			throw new IllegalArgumentException("Digite todos os campos.");
+		}
+		if(nome.length() < 5 || nome.length() > 16){
+			throw new IllegalArgumentException("O nome deve possuir entre 5 e 16 caracteres.");
+		}
+		if(senha.length() < 6 || senha.length() > 20){
+			throw new IllegalArgumentException("A senha deve possuir entre 6 e 20 caracteres.");
+		}
 		
 		String sql = "INSERT INTO usuarios (username, password, bloco) VALUES ('" + nome + "', '" + senhaCriptografada + "', '" + bloco + "')";
 		
@@ -69,7 +77,15 @@ public class UsuarioController {
 		String senha = operador.getPassword();
 		String senhaCriptografada = Cripto.Criptografar(senha);
 		
-		//ADICIONAR REGRAS
+		if(nome == null || nome.isBlank() || senha == null || senha.isBlank()){
+			throw new IllegalArgumentException("Digite todos os campos.");
+		}
+		if(nome.length() < 5 || nome.length() > 16){
+			throw new IllegalArgumentException("O nome deve possuir entre 5 e 16 caracteres.");
+		}
+		if(senha.length() < 6 || senha.length() > 20){
+			throw new IllegalArgumentException("A senha deve possuir entre 6 e 20 caracteres.");
+		}
 		
 		String sql = "SELECT username, password FROM usuarios WHERE username = '" + nome + "' AND password = '" + senhaCriptografada + "'";
 		
@@ -84,7 +100,15 @@ public class UsuarioController {
 		String bloco = operador.getBloco();
 		String senhaCriptografada = Cripto.Criptografar(senha);
 		
-		//ADICIONAR REGRAS
+		if(nome == null || nome.isBlank() || senha == null || senha.isBlank() || bloco == null || bloco.isBlank()){
+			throw new IllegalArgumentException("Digite todos os campos.");
+		}
+		if(nome.length() < 5 || nome.length() > 16){
+			throw new IllegalArgumentException("O nome deve possuir entre 5 e 16 caracteres.");
+		}
+		if(senha.length() < 6 || senha.length() > 20){
+			throw new IllegalArgumentException("A senha deve possuir entre 6 e 20 caracteres.");
+		}
 		
 		String sql = "UPDATE usuarios SET username = '" + nome + "', password = '" + senhaCriptografada + "', bloco = '" + bloco + "' WHERE id = '" + id + "'";
 		
