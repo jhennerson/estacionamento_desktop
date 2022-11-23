@@ -53,7 +53,12 @@ public class BlocoController {
 		Integer vagasMotos = bloco.getVagasMotos();
 		Integer vagasDeficientes = bloco.getVagasDeficientes();
 		
-		//ADICIONAR REGRAS
+		if(descricao == null || descricao.isBlank() || operador == null || operador.isBlank() || vagasCarros == null || vagasMotos == null || vagasDeficientes == null){
+			throw new IllegalArgumentException("Digite todos os campos.");
+		}
+		if(vagasCarros < 0 || vagasMotos < 0 || vagasDeficientes < 0){
+			throw new IllegalArgumentException("Digite um número de vagas válido.");
+		}
 		
 		String sql = "INSERT INTO blocos (descricao, operador, vagas_carros, vagas_motos, vagas_deficientes) "
 				   + "VALUES ('" + descricao + "', '" + operador + "', '" + vagasCarros + "', '" + vagasMotos + "', '" + vagasDeficientes + "')";
@@ -85,7 +90,12 @@ public class BlocoController {
 		Integer vagasMotos = bloco.getVagasMotos();
 		Integer vagasDeficientes = bloco.getVagasDeficientes();
 		
-		//ADICIONAR REGRAS
+		if(descricao == null || descricao.isBlank() || operador == null || operador.isBlank() || vagasCarros == null || vagasMotos == null || vagasDeficientes == null){
+			throw new IllegalArgumentException("Digite todos os campos.");
+		}
+		if(vagasCarros < 0 || vagasMotos < 0 || vagasDeficientes < 0){
+			throw new IllegalArgumentException("Digite um número de vagas válido.");
+		}
 		
 		String sql = "UPDATE blocos SET descricao = '" + descricao + "', operador = '" + operador + "', vagas_carros = '" + vagasCarros + "', vagas_motos = '"
 				+ vagasMotos + "', vagas_deficientes = '" + vagasDeficientes + "' WHERE id = '" + id + "'";

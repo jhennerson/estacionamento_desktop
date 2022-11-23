@@ -77,7 +77,15 @@ public class VagaController {
 		Integer categoria = vaga.getCategoria();
 		String bloco = vaga.getBloco();
 		
-		//ADICIONAR REGRAS
+		if(id == null || categoria == null || bloco == null || bloco.isBlank()){
+			throw new IllegalArgumentException("Digite todos os campos.");
+		}
+		if(id < 0){
+			throw new IllegalArgumentException("Digite uma ID válida.");
+		}
+		if(categoria < 0){
+			throw new IllegalArgumentException("Digite uma categoria válida.");
+		}
 		
 		String sql = "UPDATE vagas SET categoria = '" + categoria + "', bloco = '" + bloco + "' WHERE id = '" + id + "'";
 		
