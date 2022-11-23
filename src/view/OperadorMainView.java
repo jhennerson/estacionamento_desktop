@@ -10,10 +10,13 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+import model.Usuario;
+
 public class OperadorMainView {
 
 	private JFrame frame;
 	private JButton btnSair;
+	private Usuario sessionUsuario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -30,6 +33,11 @@ public class OperadorMainView {
 	
 	public void setVisible(boolean b) {
 		this.frame.setVisible(b);
+	}
+	
+	public OperadorMainView(Usuario sessionUsuario) {
+		this.sessionUsuario = sessionUsuario;
+		initialize();
 	}
 	
 	public OperadorMainView() {
@@ -52,7 +60,7 @@ public class OperadorMainView {
 		btnAdminBlocos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
-				BlocoView blocoView = new BlocoView();
+				BlocoView blocoView = new BlocoView(sessionUsuario);
 				blocoView.setVisible(true);								
 			}
 		});
@@ -64,7 +72,7 @@ public class OperadorMainView {
 		btnAdminVagas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
-				VagaView vagasView = new VagaView();
+				VagaView vagasView = new VagaView(sessionUsuario);
 				vagasView.setVisible(true);
 			}
 		});
@@ -75,9 +83,13 @@ public class OperadorMainView {
 		btnSair = new JButton("Sair");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.windowForComponent(btnSair).dispose();
-				LoginView loginView = new LoginView();
-				loginView.setVisible(true);				
+				try {
+					SwingUtilities.windowForComponent(btnSair).dispose();
+					LoginView loginView = new LoginView();
+					loginView.setVisible(true);
+				} catch(Exception err) {
+					err.printStackTrace();
+				}				
 			}
 		});
 		

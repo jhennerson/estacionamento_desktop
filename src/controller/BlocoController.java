@@ -53,7 +53,7 @@ public class BlocoController {
 		Integer vagasMotos = bloco.getVagasMotos();
 		Integer vagasDeficientes = bloco.getVagasDeficientes();
 		
-		if(descricao == null || descricao.isBlank() || operador == null || operador.isBlank() || vagasCarros == null || vagasMotos == null || vagasDeficientes == null){
+		if(descricao == null || descricao.isBlank() || vagasCarros == null || vagasMotos == null || vagasDeficientes == null){
 			throw new IllegalArgumentException("Digite todos os campos.");
 		}
 		if(vagasCarros < 0 || vagasMotos < 0 || vagasDeficientes < 0){

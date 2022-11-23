@@ -6,17 +6,17 @@ import java.text.SimpleDateFormat;
 public class Venda {
 
 	private Integer id;
-	private Float valor;
+	private Double valor;
 	private String timestamp;
 
-	public Venda(Integer id, Float valor, String timestamp) {
+	public Venda(Integer id, Double valor, String timestamp) {
 		super();
 		this.id = id;
 		this.valor = valor;
 		this.timestamp = timestamp;
 	}
 	
-	public Venda(Float valor) {
+	public Venda(Double valor) {
 		super();
 		this.valor = valor;
 	}
@@ -32,11 +32,11 @@ public class Venda {
 		this.id = id;
 	}
 
-	public Float getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(Float valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 

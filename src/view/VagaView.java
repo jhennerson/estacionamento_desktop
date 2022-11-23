@@ -14,6 +14,7 @@ import javax.swing.text.MaskFormatter;
 
 import controller.VagaController;
 import controller.VendaController;
+import model.Usuario;
 import model.Vaga;
 import model.Venda;
 
@@ -48,6 +49,7 @@ public class VagaView {
 	private JLabel lblTotal;
 	private JButton btnSalvar;
 	private JButton btnNewButton;
+	private Usuario sessionUsuario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -64,6 +66,11 @@ public class VagaView {
 
 	public void setVisible(boolean b) {
 		this.frame.setVisible(b);
+	}
+	
+	public VagaView(Usuario sessionUsuario) {
+		this.sessionUsuario = sessionUsuario;
+		initialize();		
 	}
 	
 	public VagaView() {
@@ -83,7 +90,8 @@ public class VagaView {
 	@SuppressWarnings("serial")
 	private void initialize() {
 		
-		VagaController vagaCtrl = new VagaController();
+		VagaController vagaCtrl = new VagaController();		
+		VendaController vendaCtrl = new VendaController();
 		
 		Integer vagasLivres = vagaCtrl.countEstado(0);
 		Integer vagasOcupadas = vagaCtrl.countEstado(1);
@@ -103,6 +111,7 @@ public class VagaView {
 		frame.getContentPane().add(scrollPaneTabela);
 		
 		txtId = new JTextField();
+		txtId.setHorizontalAlignment(SwingConstants.CENTER);
 		txtId.setEditable(false);
 		txtId.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtId.setBounds(10, 417, 91, 30);
@@ -110,6 +119,7 @@ public class VagaView {
 		txtId.setColumns(10);
 		
 		txtCategoria = new JTextField();
+		txtCategoria.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCategoria.setEditable(false);
 		txtCategoria.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtCategoria.setBounds(111, 417, 208, 30);
@@ -117,6 +127,7 @@ public class VagaView {
 		txtCategoria.setColumns(10);
 		
 		txtBloco = new JTextField();
+		txtBloco.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBloco.setEditable(false);
 		txtBloco.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtBloco.setColumns(10);
@@ -235,9 +246,20 @@ public class VagaView {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.windowForComponent(btnVoltar).dispose();
-				AdminMainView admMainView = new AdminMainView();
-				admMainView.setVisible(true);				
+				
+				try {
+					if(!sessionUsuario.getUsername().equals("admin")) {
+						SwingUtilities.windowForComponent(btnVoltar).dispose();
+						OperadorMainView oprMainView = new OperadorMainView(sessionUsuario);
+						oprMainView.setVisible(true);
+					} else {
+						SwingUtilities.windowForComponent(btnVoltar).dispose();
+						AdminMainView admMainView = new AdminMainView(sessionUsuario);
+						admMainView.setVisible(true);
+					}					
+				} catch(Exception err) {
+					err.printStackTrace();
+				}				
 			}
 		});
 		
@@ -259,7 +281,7 @@ public class VagaView {
 					vagaCtrl.alteraEstado(Integer.valueOf(id));
 					JOptionPane.showMessageDialog(null, "Estado da vaga alterado para " + estado, "Success", JOptionPane.NO_OPTION);	
 					SwingUtilities.windowForComponent(btnAlterarEstado).dispose();
-					VagaView refresh = new VagaView();
+					VagaView refresh = new VagaView(sessionUsuario);
 					refresh.setVisible(true);		
 									
 				} catch (Exception err) {
@@ -276,7 +298,7 @@ public class VagaView {
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.windowForComponent(btnVoltar).dispose();
-				RelatorioView relatorioView = new RelatorioView();
+				RelatorioView relatorioView = new RelatorioView(sessionUsuario);
 				relatorioView.setVisible(true);
 			}
 		});
@@ -289,9 +311,11 @@ public class VagaView {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					String[] valoresTempo = ftfValor.getText().split(":");
-					Float horas = Float.valueOf(valoresTempo[0]);
-					Float minutos = Float.valueOf(valoresTempo[1]);
-					Float total = (float) ((horas + (minutos / 60)) * 5.00);
+					Double horas = Double.valueOf(valoresTempo[0]);
+					Double minutos = Double.valueOf(valoresTempo[1]);
+					
+					Double total = vendaCtrl.calculatotal(horas, minutos);
+					
 					txtValorTotal.setText(String.format("R$: %.2f", total));
 					
 					JOptionPane.showMessageDialog(null, String.format("Valor total a cobrar: R$ %.2f", total) + ".", "Success", JOptionPane.NO_OPTION);					
@@ -316,14 +340,15 @@ public class VagaView {
 			public void actionPerformed(ActionEvent e) {				
 				try {
 					String[] valoresTempo = ftfValor.getText().split(":");
-					Float horas = Float.valueOf(valoresTempo[0]);
-					Float minutos = Float.valueOf(valoresTempo[1]);
-					Float total = (float) ((horas + (minutos / 60)) * 5.00);
+					Double horas = Double.valueOf(valoresTempo[0]);
+					Double minutos = Double.valueOf(valoresTempo[1]);
 					
-					VendaController vendaCtrl = new VendaController();
+					Double total = vendaCtrl.calculatotal(horas, minutos);
+					
 					Venda venda = new Venda(total);
 					
 					vendaCtrl.create(venda);
+					
 					JOptionPane.showMessageDialog(null, String.format("Venda no valor de: R$ %.2f registrada com sucesso!", total) + ".", "Success", JOptionPane.NO_OPTION);
 					
 				} catch (Exception err) {

@@ -47,7 +47,7 @@ private Statement statement;
 	
 	//salva a venda no banco de dados
 	public void create(Venda venda) {
-		Float valor = venda.getValor();
+		Double valor = venda.getValor();
 		
 		String sql = "INSERT INTO vendas (valor) "
 				   + "VALUES ('" + valor + "')";
@@ -71,7 +71,7 @@ private Statement statement;
 	//altera os dados da venda com id igual ao passado como parâmetro
 	public void update(Venda venda) {
 		Integer id = venda.getId();
-		Float valor = venda.getValor();
+		Double valor = venda.getValor();
 		
 		//ADICIONAR REGRAS
 		
@@ -109,7 +109,7 @@ private Statement statement;
 				Venda venda = new Venda();
 				
 				venda.setId(rset.getInt("id"));
-				venda.setValor(rset.getFloat("valor"));
+				venda.setValor(rset.getDouble("valor"));
 				venda.setTimestamp(rset.getTimestamp("timestamp"));
 				
 				vendas.add(venda);
@@ -120,6 +120,13 @@ private Statement statement;
 		}
 		
 		return vendas;
+	}
+	
+	//calcula o total a pagar em função de R$ 5 por hora
+	public Double calculatotal(Double horas, Double minutos) {
+		Double total = (Double) ((horas + (minutos / 60)) * 5d);
+		
+		return total;
 	}
 
 }

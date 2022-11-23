@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import controller.BlocoController;
 import controller.VagaController;
 import model.Bloco;
+import model.Usuario;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
@@ -39,6 +41,7 @@ public class BlocoView {
 	private JButton btnAtualizar;
 	private JButton btnDeletar;
 	private JButton btnVoltar;
+	private Usuario sessionUsuario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -57,6 +60,11 @@ public class BlocoView {
 		this.frame.setVisible(b);
 	}
 
+	public BlocoView(Usuario sessionUsuario) {
+		this.sessionUsuario = sessionUsuario;
+		initialize();
+	}
+	
 	public BlocoView() {
 		initialize();
 	}
@@ -187,10 +195,10 @@ public class BlocoView {
 		
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				BlocoCreateView blocoCreateView = new BlocoCreateView();
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.windowForComponent(btnCadastrar).dispose();
+				BlocoCreateView blocoCreateView = new BlocoCreateView(sessionUsuario);
 				blocoCreateView.setVisible(true);
-				SwingUtilities.windowForComponent(btnCadastrar).dispose();				
 			}
 		});
 		
@@ -216,7 +224,7 @@ public class BlocoView {
 					blocoCtrl.update(blocoUpdt);
 					JOptionPane.showMessageDialog(null, "Dados do bloco atualizados!", "Success", JOptionPane.NO_OPTION);					
 					SwingUtilities.windowForComponent(btnAtualizar).dispose();
-					BlocoView blocoView = new BlocoView();
+					BlocoView blocoView = new BlocoView(sessionUsuario);
 					blocoView.setVisible(true);					
 				} catch(Exception err) {
 					err.printStackTrace();
@@ -242,7 +250,7 @@ public class BlocoView {
 					vagaCtrl.deleteAll(descricao);
 					JOptionPane.showMessageDialog(null, "Bloco removido da base de dados!", "Success", JOptionPane.NO_OPTION);					
 					SwingUtilities.windowForComponent(btnAtualizar).dispose();
-					BlocoView blocoView = new BlocoView();
+					BlocoView blocoView = new BlocoView(sessionUsuario);
 					blocoView.setVisible(true);					
 				} catch(Exception err) {
 					err.printStackTrace();
@@ -258,9 +266,20 @@ public class BlocoView {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.windowForComponent(btnVoltar).dispose();
-				AdminMainView admMainView = new AdminMainView();
-				admMainView.setVisible(true);				
+				
+				try {
+					if(!sessionUsuario.getUsername().equals("admin")) {
+						SwingUtilities.windowForComponent(btnVoltar).dispose();
+						OperadorMainView oprMainView = new OperadorMainView(sessionUsuario);
+						oprMainView.setVisible(true);
+					} else {
+						SwingUtilities.windowForComponent(btnVoltar).dispose();
+						AdminMainView admMainView = new AdminMainView(sessionUsuario);
+						admMainView.setVisible(true);
+					}					
+				} catch(Exception err) {
+					err.printStackTrace();
+				}				
 			}
 		});
 		

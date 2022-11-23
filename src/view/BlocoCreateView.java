@@ -16,17 +16,20 @@ import controller.BlocoController;
 import controller.UsuarioController;
 import controller.VagaController;
 import model.Bloco;
+import model.Usuario;
 import model.Vaga;
 
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class BlocoCreateView {
 
 	private JFrame frame;
 	private JTextField txtDescricao;
+	private Usuario sessionUsuario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,6 +48,11 @@ public class BlocoCreateView {
 		this.frame.setVisible(b);
 	}
 
+	public BlocoCreateView(Usuario sessionUsuario) {
+		this.sessionUsuario = sessionUsuario;
+		initialize();
+	}
+	
 	public BlocoCreateView() {
 		initialize();
 	}
@@ -61,23 +69,24 @@ public class BlocoCreateView {
 		frame.getContentPane().add(lblTitulo);
 		
 		txtDescricao = new JTextField();
+		txtDescricao.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDescricao.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtDescricao.setBounds(353, 132, 211, 33);
 		frame.getContentPane().add(txtDescricao);
 		txtDescricao.setColumns(10);
 		
 		JSpinner spinnerVagasCarros = new JSpinner();
-		spinnerVagasCarros.setModel(new SpinnerNumberModel(1, 1, 50, 1));
+		spinnerVagasCarros.setModel(new SpinnerNumberModel(1, 0, 50, 1));
 		spinnerVagasCarros.setBounds(353, 220, 211, 33);
 		frame.getContentPane().add(spinnerVagasCarros);
 		
 		JSpinner spinnerVagasMotos = new JSpinner();
-		spinnerVagasMotos.setModel(new SpinnerNumberModel(1, 1, 50, 1));
+		spinnerVagasMotos.setModel(new SpinnerNumberModel(1, 0, 50, 1));
 		spinnerVagasMotos.setBounds(353, 264, 211, 33);
 		frame.getContentPane().add(spinnerVagasMotos);
 		
 		JSpinner spinnerVagasDeficientes = new JSpinner();
-		spinnerVagasDeficientes.setModel(new SpinnerNumberModel(1, 1, 50, 1));
+		spinnerVagasDeficientes.setModel(new SpinnerNumberModel(1, 0, 50, 1));
 		spinnerVagasDeficientes.setBounds(353, 308, 211, 33);
 		frame.getContentPane().add(spinnerVagasDeficientes);
 		
@@ -159,11 +168,15 @@ public class BlocoCreateView {
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				txtDescricao.setText("");
-				SwingUtilities.windowForComponent(btnCadastrar).dispose();
-				BlocoView blocoView = new BlocoView();
-				blocoView.setVisible(true);
+			public void actionPerformed(ActionEvent e) {
+				try {
+					txtDescricao.setText("");
+					SwingUtilities.windowForComponent(btnCadastrar).dispose();
+					BlocoView blocoView = new BlocoView(sessionUsuario);
+					blocoView.setVisible(true);
+				} catch(Exception err) {
+					err.printStackTrace();
+				}
 			}
 		});
 		

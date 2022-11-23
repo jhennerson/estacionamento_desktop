@@ -7,7 +7,7 @@ public class Operador extends Usuario {
 	}
 
 	public Operador(String username, String password, String bloco) {
-		super(username, password);
+		super(username, password,bloco);
 	}
 
 	public Operador(String username, String password) {

@@ -21,6 +21,7 @@ import controller.UsuarioController;
 import model.Operador;
 import model.Usuario;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 public class UsuarioView {
 
@@ -35,7 +36,7 @@ public class UsuarioView {
 	private JButton btnDeletar;
 	private JButton btnVoltar;
 	private JTextField txtBloco;
-	
+	private Usuario sessionUsuario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,6 +55,11 @@ public class UsuarioView {
 		this.frame.setVisible(b);
 	}
 
+	public UsuarioView(Usuario sessionUsuario) {
+		this.sessionUsuario = sessionUsuario;
+		initialize();
+	}
+	
 	public UsuarioView() {
 		initialize();
 	}
@@ -78,6 +84,7 @@ public class UsuarioView {
 		frame.getContentPane().add(scrollPaneTabela);
 		
 		txtId = new JTextField();
+		txtId.setHorizontalAlignment(SwingConstants.CENTER);
 		txtId.setEditable(false);
 		txtId.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtId.setBounds(22, 417, 79, 30);
@@ -85,12 +92,14 @@ public class UsuarioView {
 		txtId.setColumns(10);
 		
 		txtUsername = new JTextField();
+		txtUsername.setHorizontalAlignment(SwingConstants.CENTER);
 		txtUsername.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtUsername.setBounds(123, 417, 197, 30);
 		frame.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
 		txtPassword = new JTextField();
+		txtPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtPassword.setColumns(10);
 		txtPassword.setBounds(361, 417, 218, 30);
@@ -158,10 +167,10 @@ public class UsuarioView {
 		
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				UsuarioCreateView usuarioCreateView = new UsuarioCreateView();
-				usuarioCreateView.setVisible(true);
-				SwingUtilities.windowForComponent(btnCadastrar).dispose();				
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.windowForComponent(btnCadastrar).dispose();
+				UsuarioCreateView usuarioCreateView = new UsuarioCreateView(sessionUsuario);
+				usuarioCreateView.setVisible(true);				
 			}
 		});
 		
@@ -223,9 +232,20 @@ public class UsuarioView {
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AdminMainView admMainView = new AdminMainView();
-				admMainView.setVisible(true);
-				SwingUtilities.windowForComponent(btnVoltar).dispose();
+				
+				try {
+					if(!sessionUsuario.getUsername().equals("admin")) {
+						SwingUtilities.windowForComponent(btnVoltar).dispose();
+						OperadorMainView oprMainView = new OperadorMainView(sessionUsuario);
+						oprMainView.setVisible(true);
+					} else {
+						SwingUtilities.windowForComponent(btnVoltar).dispose();
+						AdminMainView admMainView = new AdminMainView(sessionUsuario);
+						admMainView.setVisible(true);
+					}
+				} catch(Exception err) {
+					err.printStackTrace();
+				}				
 			}
 		});
 		
@@ -234,6 +254,7 @@ public class UsuarioView {
 		frame.getContentPane().add(btnVoltar);
 		
 		txtBloco = new JTextField();
+		txtBloco.setHorizontalAlignment(SwingConstants.CENTER);
 		txtBloco.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtBloco.setColumns(10);
 		txtBloco.setBounds(619, 417, 133, 30);

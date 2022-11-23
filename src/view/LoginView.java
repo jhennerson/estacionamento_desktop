@@ -17,6 +17,8 @@ import javax.swing.SwingUtilities;
 
 import controller.UsuarioController;
 import model.Operador;
+import model.Usuario;
+import javax.swing.SwingConstants;
 
 public class LoginView {
 
@@ -53,36 +55,43 @@ public class LoginView {
 		frame.getContentPane().setLayout(null);
 		
 		txtUsername = new JTextField();
-		txtUsername.setBounds(370, 224, 124, 20);
+		txtUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		txtUsername.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtUsername.setBounds(370, 213, 124, 31);
 		frame.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 		
 		JLabel lblUsuario = new JLabel("Usuário:");
-		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUsuario.setBounds(284, 225, 61, 14);
+		lblUsuario.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblUsuario.setBounds(284, 219, 61, 14);
 		frame.getContentPane().add(lblUsuario);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(370, 255, 124, 20);
+		passwordField.setHorizontalAlignment(SwingConstants.CENTER);
+		passwordField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		passwordField.setBounds(370, 255, 124, 31);
 		frame.getContentPane().add(passwordField);
 		
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblSenha.setBounds(284, 256, 61, 14);
+		lblSenha.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblSenha.setBounds(284, 261, 61, 14);
 		frame.getContentPane().add(lblSenha);
 
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				try {
+				
+				
+				try {					
+					
 					Operador operador = new Operador();
 					
-					String nome = txtUsername.getText();
+					String username = txtUsername.getText();
 					String senha = String.valueOf(passwordField.getPassword());
 					
 					operador.setPassword(senha);
-					operador.setUsername(nome);
+					operador.setUsername(username);
 					
 					UsuarioController usuCtrl = new UsuarioController();
 					ResultSet rsUsuarioCtrl = usuCtrl.read(operador);
@@ -91,12 +100,12 @@ public class LoginView {
 						if(rsUsuarioCtrl.getString("username").equalsIgnoreCase("admin")) {
 							JOptionPane.showMessageDialog(null, "Seja bem vindo Administrador!", "Success", JOptionPane.NO_OPTION);
 							SwingUtilities.windowForComponent(btnEntrar).dispose();
-							AdminMainView admMainView = new AdminMainView();
+							AdminMainView admMainView = new AdminMainView(operador);
 							admMainView.setVisible(true);
 						} else {
 							JOptionPane.showMessageDialog(null, "Logado com sucesso!", "Success", JOptionPane.NO_OPTION);
 							SwingUtilities.windowForComponent(btnEntrar).dispose();
-							OperadorMainView opMainView = new OperadorMainView();
+							OperadorMainView opMainView = new OperadorMainView(operador);
 							opMainView.setVisible(true);
 						}						
 					} else {
@@ -111,7 +120,8 @@ public class LoginView {
 				
 			}
 		});
-		btnEntrar.setFont(new Font("Dialog", Font.PLAIN, 14));
+		
+		btnEntrar.setFont(new Font("Dialog", Font.PLAIN, 16));
 		btnEntrar.setBounds(327, 341, 138, 38);
 		frame.getContentPane().add(btnEntrar);
 		

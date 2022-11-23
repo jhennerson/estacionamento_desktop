@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+import model.Usuario;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -15,6 +17,7 @@ public class AdminMainView {
 
 	private JFrame frame;
 	private JButton btnSair;
+	private Usuario sessionUsuario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -33,6 +36,11 @@ public class AdminMainView {
 		this.frame.setVisible(b);
 	}
 
+	public AdminMainView(Usuario sessionUsuario) {
+		this.sessionUsuario = sessionUsuario;
+		initialize();
+	}
+	
 	public AdminMainView() {
 		initialize();
 	}
@@ -53,7 +61,7 @@ public class AdminMainView {
 		btnAdminBlocos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
-				BlocoView blocoView = new BlocoView();
+				BlocoView blocoView = new BlocoView(sessionUsuario);
 				blocoView.setVisible(true);								
 			}
 		});
@@ -66,7 +74,7 @@ public class AdminMainView {
 		btnAdminUsuarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
-				UsuarioView usuarioView = new UsuarioView();
+				UsuarioView usuarioView = new UsuarioView(sessionUsuario);
 				usuarioView.setVisible(true);				
 			}
 		});
@@ -78,7 +86,7 @@ public class AdminMainView {
 		btnAdminVagas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SwingUtilities.windowForComponent(btnAdminBlocos).dispose();
-				VagaView vagasView = new VagaView();
+				VagaView vagasView = new VagaView(sessionUsuario);
 				vagasView.setVisible(true);
 			}
 		});

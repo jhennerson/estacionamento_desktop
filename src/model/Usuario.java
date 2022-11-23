@@ -14,11 +14,20 @@ public abstract class Usuario {
 		this.bloco = bloco;
 	}
 	
+	public Usuario(String username, String password, String bloco) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.bloco = bloco;
+	}
+	
 	public Usuario(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
+	
+	
 	
 	public Usuario() {
 	}

@@ -17,7 +17,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import controller.UsuarioController;
 import controller.VendaController;
 import model.Usuario;
 import model.Venda;
@@ -33,6 +32,7 @@ public class RelatorioView {
 	private JTextField txtDataHora;
 	private JTextField txtTotal;
 	private JLabel lblTotal;
+	private Usuario sessionUsuario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -51,6 +51,11 @@ public class RelatorioView {
 		this.frame.setVisible(b);
 	}
 
+	public RelatorioView(Usuario sessionUsuario) {
+		this.sessionUsuario = sessionUsuario;
+		initialize();
+	}
+	
 	public RelatorioView() {
 		initialize();
 	}
@@ -62,7 +67,7 @@ public class RelatorioView {
 		
 
 		
-		Float total = 0f;
+		Double total = 0d;
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
@@ -74,6 +79,7 @@ public class RelatorioView {
 		frame.getContentPane().add(scrollPaneTabela);
 		
 		txtId = new JTextField();
+		txtId.setHorizontalAlignment(SwingConstants.CENTER);
 		txtId.setEditable(false);
 		txtId.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtId.setBounds(10, 417, 79, 30);
@@ -81,12 +87,14 @@ public class RelatorioView {
 		txtId.setColumns(10);
 		
 		txtValor = new JTextField();
+		txtValor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtValor.setEditable(false);
 		txtValor.setBounds(99, 417, 303, 30);
 		frame.getContentPane().add(txtValor);
 		txtValor.setColumns(10);
 		
 		txtDataHora = new JTextField();
+		txtDataHora.setHorizontalAlignment(SwingConstants.CENTER);
 		txtDataHora.setEditable(false);
 		txtDataHora.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		txtDataHora.setColumns(10);
@@ -154,10 +162,14 @@ public class RelatorioView {
 		
 		btnVoltar = new JButton("Voltar");
 		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SwingUtilities.windowForComponent(btnVoltar).dispose();
-				VagaView vagasView = new VagaView();
-				vagasView.setVisible(true);				
+			public void actionPerformed(ActionEvent e) {				
+				try {
+					SwingUtilities.windowForComponent(btnVoltar).dispose();
+					VagaView vagasView = new VagaView(sessionUsuario);
+					vagasView.setVisible(true);
+				} catch(Exception err) {
+					err.printStackTrace();
+				}				
 			}
 		});
 		
