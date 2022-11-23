@@ -58,8 +58,8 @@ public class UsuarioController {
 		if(nome.length() < 5 || nome.length() > 16){
 			throw new IllegalArgumentException("O nome deve possuir entre 5 e 16 caracteres.");
 		}
-		if(senha.length() < 6 || senha.length() > 20){
-			throw new IllegalArgumentException("A senha deve possuir entre 6 e 20 caracteres.");
+		if(senha.length() < 5 || senha.length() > 20){
+			throw new IllegalArgumentException("A senha deve possuir entre 5 e 20 caracteres.");
 		}
 		
 		String sql = "INSERT INTO usuarios (username, password, bloco) VALUES ('" + nome + "', '" + senhaCriptografada + "', '" + bloco + "')";
@@ -83,8 +83,8 @@ public class UsuarioController {
 		if(nome.length() < 5 || nome.length() > 16){
 			throw new IllegalArgumentException("O nome deve possuir entre 5 e 16 caracteres.");
 		}
-		if(senha.length() < 6 || senha.length() > 20){
-			throw new IllegalArgumentException("A senha deve possuir entre 6 e 20 caracteres.");
+		if(senha.length() < 5 || senha.length() > 20){
+			throw new IllegalArgumentException("A senha deve possuir entre 5 e 20 caracteres.");
 		}
 		
 		String sql = "SELECT username, password FROM usuarios WHERE username = '" + nome + "' AND password = '" + senhaCriptografada + "'";
@@ -106,8 +106,8 @@ public class UsuarioController {
 		if(nome.length() < 5 || nome.length() > 16){
 			throw new IllegalArgumentException("O nome deve possuir entre 5 e 16 caracteres.");
 		}
-		if(senha.length() < 6 || senha.length() > 20){
-			throw new IllegalArgumentException("A senha deve possuir entre 6 e 20 caracteres.");
+		if(senha.length() < 5 || senha.length() > 20){
+			throw new IllegalArgumentException("A senha deve possuir entre 5 e 20 caracteres.");
 		}
 		
 		String sql = "UPDATE usuarios SET username = '" + nome + "', password = '" + senhaCriptografada + "', bloco = '" + bloco + "' WHERE id = '" + id + "'";
