@@ -13,7 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 import controller.VagaController;
+import controller.VendaController;
 import model.Vaga;
+import model.Venda;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -44,7 +46,7 @@ public class VagaView {
 	private JLabel lblVagasOcupadas;
 	private JTextField txtVagasOcupadas;
 	private JLabel lblTotal;
-	private JButton btnFaturar;
+	private JButton btnSalvar;
 	private JButton btnNewButton;
 
 	public static void main(String[] args) {
@@ -181,14 +183,10 @@ public class VagaView {
 				String tblId = tblModel.getValueAt(tableVagas.getSelectedRow(), 0).toString();
 				String tblCategoria = tblModel.getValueAt(tableVagas.getSelectedRow(), 1).toString();
 				String tblBloco = tblModel.getValueAt(tableVagas.getSelectedRow(), 2).toString();
-				//String tblEstado = tblModel.getValueAt(tableVagas.getSelectedRow(), 3).toString();
-				String tblTimestamp = tblModel.getValueAt(tableVagas.getSelectedRow(), 4).toString();
 				
 				txtId.setText(tblId.toString());
 				txtCategoria.setText(tblCategoria);
-				txtBloco.setText(tblBloco);
-				//txtEstado.setText(tblEstado);
-				//txtValorTotal.setText(tblTimestamp);								
+				txtBloco.setText(tblBloco);							
 			}
 		});
 
@@ -275,6 +273,13 @@ public class VagaView {
 		frame.getContentPane().add(btnAlterarEstado);
 		
 		btnRelatorio = new JButton("Relatório");
+		btnRelatorio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.windowForComponent(btnVoltar).dispose();
+				RelatorioView relatorioView = new RelatorioView();
+				relatorioView.setVisible(true);
+			}
+		});
 		btnRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnRelatorio.setBounds(376, 503, 164, 47);
 		frame.getContentPane().add(btnRelatorio);
@@ -306,10 +311,30 @@ public class VagaView {
 		lblTotal.setBounds(247, 458, 72, 30);
 		frame.getContentPane().add(lblTotal);
 		
-		btnFaturar = new JButton("Faturar");
-		btnFaturar.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnFaturar.setBounds(193, 503, 164, 47);
-		frame.getContentPane().add(btnFaturar);
+		btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {				
+				try {
+					String[] valoresTempo = ftfValor.getText().split(":");
+					Float horas = Float.valueOf(valoresTempo[0]);
+					Float minutos = Float.valueOf(valoresTempo[1]);
+					Float total = (float) ((horas + (minutos / 60)) * 5.00);
+					
+					VendaController vendaCtrl = new VendaController();
+					Venda venda = new Venda(total);
+					
+					vendaCtrl.create(venda);
+					JOptionPane.showMessageDialog(null, String.format("Venda no valor de: R$ %.2f registrada com sucesso!", total) + ".", "Success", JOptionPane.NO_OPTION);
+					
+				} catch (Exception err) {
+					JOptionPane.showMessageDialog(null, "Realize primeiro o cálculo de preço!", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		
+		btnSalvar.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnSalvar.setBounds(193, 503, 164, 47);
+		frame.getContentPane().add(btnSalvar);
 		
 		btnNewButton = new JButton("Limpar");
 		btnNewButton.addActionListener(new ActionListener() {

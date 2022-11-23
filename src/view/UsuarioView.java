@@ -60,6 +60,9 @@ public class UsuarioView {
 
 	@SuppressWarnings("serial")
 	private void initialize() {
+		
+		UsuarioController usuarioCtrl = new UsuarioController();
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -134,8 +137,6 @@ public class UsuarioView {
 		tableOperadores.getColumnModel().getColumn(2).setPreferredWidth(261);
 		tableOperadores.getColumnModel().getColumn(3).setResizable(false);
 		tableOperadores.getColumnModel().getColumn(3).setPreferredWidth(122);
-		
-		UsuarioController usuarioCtrl = new UsuarioController();
 		
 		List<Usuario> usuarios = usuarioCtrl.getList();
 		

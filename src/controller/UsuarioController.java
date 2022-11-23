@@ -101,7 +101,7 @@ public class UsuarioController {
 		String sql = "DELETE FROM usuarios WHERE id = '" + id + "'";
 		
 		try {
-			this.execute(sql);
+			if(id != 1)	this.execute(sql);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

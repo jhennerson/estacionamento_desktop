@@ -82,6 +82,7 @@ public class AdminMainView {
 				vagasView.setVisible(true);
 			}
 		});
+		
 		btnAdminVagas.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnAdminVagas.setBounds(237, 142, 315, 67);
 		frame.getContentPane().add(btnAdminVagas);
