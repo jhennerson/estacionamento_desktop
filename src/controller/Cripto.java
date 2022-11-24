@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 public abstract class Cripto {
 	
-	public static String Criptografar(String senha) {
+	public static String criptografar(String senha) {
 		
 		MessageDigest md;
 		

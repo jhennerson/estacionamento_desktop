@@ -50,7 +50,7 @@ public class UsuarioController {
 		String nome = operador.getUsername();
 		String senha = operador.getPassword().toString();
 		String bloco = operador.getBloco();
-		String senhaCriptografada = Cripto.Criptografar(senha);
+		String senhaCriptografada = Cripto.criptografar(senha);
 		
 		if(nome == null || nome.isBlank() || senha == null || senha.isBlank()){
 			throw new IllegalArgumentException("Digite todos os campos.");
@@ -75,7 +75,7 @@ public class UsuarioController {
 	public ResultSet read(Operador operador) {		
 		String nome = operador.getUsername();
 		String senha = operador.getPassword();
-		String senhaCriptografada = Cripto.Criptografar(senha);
+		String senhaCriptografada = Cripto.criptografar(senha);
 		
 		if(nome == null || nome.isBlank() || senha == null || senha.isBlank()){
 			throw new IllegalArgumentException("Digite todos os campos.");
@@ -98,7 +98,7 @@ public class UsuarioController {
 		String nome = operador.getUsername();
 		String senha = operador.getPassword().toString();
 		String bloco = operador.getBloco();
-		String senhaCriptografada = Cripto.Criptografar(senha);
+		String senhaCriptografada = Cripto.criptografar(senha);
 		
 		if(nome == null || nome.isBlank() || senha == null || senha.isBlank() || bloco == null || bloco.isBlank()){
 			throw new IllegalArgumentException("Digite todos os campos.");
@@ -136,9 +136,7 @@ public class UsuarioController {
 		List<Usuario> operadores = new ArrayList<Usuario>();
 		ResultSet rset = null;		
 		String sql = "SELECT * FROM usuarios ORDER BY id";
-		
-		//ADICIONAR REGRAS
-		
+
 		try {					
 			rset = query(sql);
 			
@@ -164,9 +162,7 @@ public class UsuarioController {
 	public List<String> distinctList() {
 		List<String> nomes = new ArrayList<String>();
 		ResultSet rset = null;
-		
-		//ADICIONAR REGRAS
-		
+
 		String sql = "SELECT DISTINCT username FROM usuarios ORDER BY username ASC";
 		
 		try {			

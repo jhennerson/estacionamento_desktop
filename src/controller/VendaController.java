@@ -72,9 +72,7 @@ private Statement statement;
 	public void update(Venda venda) {
 		Integer id = venda.getId();
 		Double valor = venda.getValor();
-		
-		//ADICIONAR REGRAS
-		
+
 		String sql = "UPDATE vendas SET valor = '" + valor + "' WHERE id = '" + id + "'";
 		
 		try {

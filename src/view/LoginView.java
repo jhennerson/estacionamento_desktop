@@ -17,7 +17,6 @@ import javax.swing.SwingUtilities;
 
 import controller.UsuarioController;
 import model.Operador;
-import model.Usuario;
 import javax.swing.SwingConstants;
 
 public class LoginView {
@@ -79,10 +78,7 @@ public class LoginView {
 
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				
+			public void actionPerformed(ActionEvent e) {		
 				try {					
 					
 					Operador operador = new Operador();
@@ -117,7 +113,6 @@ public class LoginView {
 				} catch (SQLException erro) {
 					JOptionPane.showMessageDialog(null, "Login ou senha inválido!", "Ops", JOptionPane.ERROR_MESSAGE);
 				}				
-				
 			}
 		});
 		

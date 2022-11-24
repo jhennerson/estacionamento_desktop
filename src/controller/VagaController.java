@@ -202,9 +202,7 @@ public class VagaController {
 		ResultSet rset = null;		
 		String sql = "SELECT estado FROM vagas WHERE id = '" + id + "'";
 		Integer estado = null;
-		
-		//ADICIONAR REGRAS		
-		
+
 		try {					
 			rset = query(sql);
 			

@@ -73,9 +73,7 @@ public class BlocoController {
 	//recupera informações do bloco pelo id
 	public ResultSet read(Bloco bloco) {		
 		Integer id = bloco.getId();
-		
-		//ADICIONAR REGRAS
-		
+
 		String sql = "SELECT * FROM blocos WHERE id = '" + id + "'";
 		
 		return query(sql);
@@ -110,8 +108,6 @@ public class BlocoController {
 	//apaga o bloco pelo ID
 	public void delete(Integer id) {
 		
-		//ADICIONAR REGRAS
-		
 		String sql = "DELETE FROM blocos WHERE id = '" + id + "'";
 		
 		try {
@@ -125,9 +121,7 @@ public class BlocoController {
 	public List<Bloco> getList() {		
 		List<Bloco> blocos = new ArrayList<Bloco>();
 		ResultSet rset = null;
-		
-		//ADICIONAR REGRAS
-		
+			
 		String sql = "SELECT * FROM blocos ORDER BY descricao";
 		
 		try {					
@@ -157,8 +151,6 @@ public class BlocoController {
 	public List<String> distinctList() {
 		List<String> descricoes = new ArrayList<String>();
 		ResultSet rset = null;
-		
-		//ADICIONAR REGRAS
 		
 		String sql = "SELECT DISTINCT descricao FROM blocos ORDER BY descricao ASC";
 		
