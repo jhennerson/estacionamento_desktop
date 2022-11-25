@@ -96,6 +96,22 @@ public class VagaController {
 		}
 	}
 	
+	//altera a descrição para o novo bloco de todas as vagas com o bloco indicado
+	public void updateAllBloco(String blocoOld, String blocoNew) {
+		
+		if(blocoOld == null || blocoNew == null){
+			throw new IllegalArgumentException("Os blocos não podem ser vazios!");
+		}
+		
+		String sql = "UPDATE vagas SET bloco = '" + blocoNew + "' WHERE bloco = '" + blocoOld + "'";
+		
+		try {
+			this.execute(sql);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//apaga a vaga pelo ID
 	public void delete(Integer id) {
 		
@@ -197,7 +213,7 @@ public class VagaController {
 		}		
 	}
 	
-	//altera e retorna o estado da vaga
+	//altera e retorna o estado da vaga 0 = livre 1 = ocupado
 	public void alteraEstado(Integer id) {		
 		ResultSet rset = null;		
 		String sql = "SELECT estado FROM vagas WHERE id = '" + id + "'";
@@ -226,7 +242,7 @@ public class VagaController {
 		}		
 	}
 	
-	//retorna a quantidade de vagas de acordo com o estado informado
+	//retorna a quantidade de vagas de acordo com o estado informado 0 = livre 1 = ocupado
 	public Integer countEstado(Integer estado) {
 		ResultSet rset = null;		
 		String sql = "SELECT COUNT(*) AS count FROM vagas WHERE estado = '" + estado + "'";

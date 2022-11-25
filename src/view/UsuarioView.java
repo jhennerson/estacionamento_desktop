@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
+import controller.BlocoController;
 import controller.UsuarioController;
 import model.Operador;
 import model.Usuario;
@@ -68,6 +69,7 @@ public class UsuarioView {
 	private void initialize() {
 		
 		UsuarioController usuarioCtrl = new UsuarioController();
+		BlocoController blocoCtrl = new BlocoController();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
@@ -185,15 +187,14 @@ public class UsuarioView {
 				String username = txtUsername.getText();
 				String password = txtPassword.getText();
 				String bloco = txtBloco.getText();
-				
-				UsuarioController usuarioCtrl = new UsuarioController();				
+								
 				Operador operadorUpdt = new Operador(id, username, password, bloco);
 				
 				try {
 					usuarioCtrl.update(operadorUpdt);
 					JOptionPane.showMessageDialog(null, "Dados do operador atualizados!", "Success", JOptionPane.NO_OPTION);
 					SwingUtilities.windowForComponent(btnAtualizar).dispose();
-					UsuarioView usuarioView = new UsuarioView();
+					UsuarioView usuarioView = new UsuarioView(sessionUsuario);
 					usuarioView.setVisible(true);					
 				} catch(Exception err) {
 					err.printStackTrace();
@@ -216,7 +217,7 @@ public class UsuarioView {
 					usuarioCtrl.delete(id);
 					JOptionPane.showMessageDialog(null, "Bloco removido da base de dados!", "Success", JOptionPane.NO_OPTION);
 					SwingUtilities.windowForComponent(btnAtualizar).dispose();
-					UsuarioView usuarioView = new UsuarioView();
+					UsuarioView usuarioView = new UsuarioView(sessionUsuario);
 					usuarioView.setVisible(true);					
 				} catch(Exception err) {
 					err.printStackTrace();

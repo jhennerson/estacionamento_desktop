@@ -73,6 +73,7 @@ public class BlocoView {
 	private void initialize() {
 		
 		BlocoController blocoCtrl = new BlocoController();
+		VagaController vagaCtrl = new VagaController();
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
@@ -144,10 +145,11 @@ public class BlocoView {
 				txtOperador.setText(tblOperador);
 				spinnerVagasCarros.setValue(tblVagasCarros);
 				spinnerVagasMotos.setValue(tblVagasMotos);
-				spinnerVagasDeficientes.setValue(tblVagasDeficientes);				
+				spinnerVagasDeficientes.setValue(tblVagasDeficientes);			
+				
 			}
-		});
-
+		});		
+		
 		tableBlocos.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -208,7 +210,11 @@ public class BlocoView {
 		
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {
+				
+				String descricaoNew = new String();
+				String descricaoOld = new String();				
+				
 				Integer id = Integer.valueOf(txtId.getText());
 				String descricao = txtDescricao.getText();
 				String operador = txtOperador.getText();
@@ -216,12 +222,14 @@ public class BlocoView {
 				Integer vagasMotos = (int)spinnerVagasMotos.getValue();
 				Integer vagasDeficientes = (int)spinnerVagasDeficientes.getValue();
 				
-				BlocoController blocoCtrl = new BlocoController();
-				
 				Bloco blocoUpdt = new Bloco(id, descricao, operador, vagasCarros, vagasMotos, vagasDeficientes);
+				
+				descricaoOld = tableBlocos.getValueAt(tableBlocos.getSelectedRow(), 1).toString();
+				descricaoNew = descricao;
 				
 				try {
 					blocoCtrl.update(blocoUpdt);
+					vagaCtrl.updateAllBloco(descricaoOld, descricaoNew);
 					JOptionPane.showMessageDialog(null, "Dados do bloco atualizados!", "Success", JOptionPane.NO_OPTION);					
 					SwingUtilities.windowForComponent(btnAtualizar).dispose();
 					BlocoView blocoView = new BlocoView(sessionUsuario);

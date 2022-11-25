@@ -302,6 +302,7 @@ public class VagaView {
 				relatorioView.setVisible(true);
 			}
 		});
+		
 		btnRelatorio.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnRelatorio.setBounds(376, 503, 164, 47);
 		frame.getContentPane().add(btnRelatorio);

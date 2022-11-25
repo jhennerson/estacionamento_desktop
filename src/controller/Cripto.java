@@ -10,7 +10,7 @@ public abstract class Cripto {
 		
 		MessageDigest md;
 		
-		try {			
+		try {
 			md = MessageDigest.getInstance("MD5");
 			
 		} catch(NoSuchAlgorithmException e) {

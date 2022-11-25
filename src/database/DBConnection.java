@@ -48,7 +48,7 @@ public class DBConnection {
 			//DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 			this.connection = DriverManager.getConnection(url);
 			Random rand = new Random();
-			System.out.println("Conexão bem sucedida!"+ rand);
+			//System.out.println("Conexão bem sucedida!"+ rand);
 		//} catch (InstantiationException e){
 		//	e.printStackTrace();
 		//} catch (IllegalAccessException e){

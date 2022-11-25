@@ -58,6 +58,7 @@ public class BlocoCreateView {
 	}
 
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -157,7 +158,7 @@ public class BlocoCreateView {
 				
 				txtDescricao.setText("");
 				SwingUtilities.windowForComponent(btnCadastrar).dispose();
-				AdminMainView admMainView = new AdminMainView();
+				AdminMainView admMainView = new AdminMainView(sessionUsuario);
 				admMainView.setVisible(true);								
 			}
 		});

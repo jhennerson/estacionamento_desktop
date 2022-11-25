@@ -65,8 +65,6 @@ public class RelatorioView {
 		
 		VendaController vendaCtrl = new VendaController();
 		
-
-		
 		Double total = 0d;
 		
 		frame = new JFrame();
@@ -115,7 +113,6 @@ public class RelatorioView {
 				txtId.setText(tblId.toString());
 				txtValor.setText(tblValor);
 				txtDataHora.setText(tblDataHora);
-
 			}
 		});
 
