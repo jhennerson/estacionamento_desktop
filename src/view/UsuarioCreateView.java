@@ -112,8 +112,6 @@ public class UsuarioCreateView {
 				String senha = String.valueOf(passwordField.getPassword());
 				String bloco = String.valueOf(comboBoxBloco.getSelectedItem());
 				
-				System.out.println(bloco);
-				
 				UsuarioController usuCtrl = new UsuarioController();
 				Operador operadorUpdt = new Operador(nome, senha, bloco);
 				
